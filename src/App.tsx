@@ -6,11 +6,13 @@ import {
   Register,
   DashboardLayout,
   LandingPage,
+  Error404,
 } from './pages';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomeLayout />,
+    errorElement:<Error404/>,
     children: [
       {index: true, element: <LandingPage />},
       {
