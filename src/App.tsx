@@ -7,12 +7,17 @@ import {
   DashboardLayout,
   LandingPage,
   Error404,
+  Addjob,
+  Stats,
+  Alljobs,
+  Profile,
+  Admin,
 } from './pages';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomeLayout />,
-    errorElement:<Error404/>,
+    errorElement: <Error404 />,
     children: [
       {index: true, element: <LandingPage />},
       {
@@ -26,6 +31,28 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <Addjob />,
+          },
+          {
+            path: 'stats',
+            element: <Stats />,
+          },
+          {
+            path: 'all-jobs',
+            element: <Alljobs />,
+          },
+          {
+            path: 'profile',
+            element: <Profile />,
+          },
+          {
+            path: 'admin',
+            element: <Admin />,
+          },
+        ],
       },
     ],
   },
