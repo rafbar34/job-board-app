@@ -8,7 +8,7 @@ import {DashboardWrappter} from '../../css/Dasboard/DashboardWrapper';
 export const DashboardContext = createContext({});
 
 export const DashboardLayout = () => {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleDarkTheme = () => {

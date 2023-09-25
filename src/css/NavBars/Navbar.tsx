@@ -39,7 +39,7 @@ export const NavbarWrapper = styled.nav`
     position: sticky;
     top: 0;
     .nav-center {
-      width: 90%;
+      width: 90vw;
     }
     .logo {
       display: none;

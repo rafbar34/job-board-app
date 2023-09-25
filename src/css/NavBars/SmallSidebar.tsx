@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const SmallSidebarWrapper = styled.aside`
+export const SidebarWrapper = styled.aside`
   @media (min-width: 992px) {
     display: none;
   }
-  .sidebar-container {
+  .side-container {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -43,23 +43,23 @@ export const SmallSidebarWrapper = styled.aside`
     color: var(--red-dark);
     cursor: pointer;
   }
-  .nav-links{
-    padding-top:2rem;
+  .nav-links {
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
   }
-  .nav-link{
+  .nav-link {
     display: flex;
     align-items: center;
-    color:var(--text-secondary-color);
-    padding:1rem 0;
+    color: var(--text-secondary-color);
+    padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);
   }
-  .nav-link:hover{
-    color:var(--primary-500);
+  .nav-link:hover {
+    color: var(--primary-500);
   }
   .active {
-    color:var(--primary-500)
+    color: var(--primary-500);
   }
 `;

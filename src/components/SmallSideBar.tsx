@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {links} from '../utils/Links';
 import {Link, NavLink} from 'react-router-dom';
-import { SmallSidebarWrapper } from '../css/NavBars/SmallSidebar';
-import { DashboardContext } from '../pages/Dashboard/DashboardLayout';
+import {SidebarWrapper} from '../css/NavBars/SmallSidebar';
+import {DashboardContext} from '../pages/Dashboard/DashboardLayout';
+import {NavLinks} from './NavLinks';
 
 export const SmallSideBar = () => {
   const {showSidebar, toggleSidebar} = useContext(DashboardContext);
+  console.log(showSidebar)
   return (
-    <SmallSidebarWrapper>
+    <SidebarWrapper>
       awdwad
       <div
         className={
@@ -21,19 +23,9 @@ export const SmallSideBar = () => {
             Icon
           </button>
           <header>logo</header>
-          <div className='nav-links'>
-            {links.map((link) => (
-              <NavLink
-                end
-                to={link.path}
-                className={'nav-link'}
-                key={link.title}>
-                <span className='icon'>{link.title}</span>
-              </NavLink>
-            ))}
-          </div>
+          <NavLinks />
         </div>
       </div>
-    </SmallSidebarWrapper>
+    </SidebarWrapper>
   );
 };
