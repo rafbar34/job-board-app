@@ -22,7 +22,7 @@ export const DashboardLayout = () => {
   const logoutUser = async () => {
     console.log('logout');
   };
-
+let user = "tester"
   return (
     <DashboardContext.Provider
       value={{
@@ -30,6 +30,8 @@ export const DashboardLayout = () => {
         isDarkTheme,
         toggleDarkTheme,
         toggleSidebar,
+        user,
+        logoutUser
       }}>
       <DashboardWrappter>
         <main className='dashboard'>
