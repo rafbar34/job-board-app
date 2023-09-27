@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {DashboardContext} from '../pages/Dashboard/DashboardLayout';
+import { LogoutWrapper } from '../css/Auth/LogoutWrapper';
 
 export const Logout = () => {
   const [showLogout, setShowLogout] = useState(false);

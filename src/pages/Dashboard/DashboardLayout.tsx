@@ -4,15 +4,21 @@ import {SmallSideBar} from '../../components/SmallSideBar';
 import {BigSiderBar} from '../../components/BigSideBar';
 import {NavBar} from '../../components/NavBar';
 import {DashboardWrappter} from '../../css/Dasboard/DashboardWrapper';
+import { checkDefaultTheme } from '../../App';
 
 export const DashboardContext = createContext({});
 
+
 export const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
   const toggleDarkTheme = () => {
-    console.log('dark');
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+    console.log('dark theme');
+    document.body.classList.toggle('dark-theme', newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
   };
 
   const toggleSidebar = () => {
@@ -22,7 +28,7 @@ export const DashboardLayout = () => {
   const logoutUser = async () => {
     console.log('logout');
   };
-let user = "tester"
+  let user = 'tester';
   return (
     <DashboardContext.Provider
       value={{
@@ -31,7 +37,7 @@ let user = "tester"
         toggleDarkTheme,
         toggleSidebar,
         user,
-        logoutUser
+        logoutUser,
       }}>
       <DashboardWrappter>
         <main className='dashboard'>

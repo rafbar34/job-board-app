@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LogoutWrapper = styled.div`
+export const LogoutWrapper = styled.div`
   position: relative;
   .logout-btn {
     display: flex;
