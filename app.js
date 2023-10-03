@@ -16,9 +16,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('test');
-});
+// app.get('/', (req, res) => {
+//   res.send('test');
+// });
 app.post('/', (req, res) => {
   res.json({message: 'data recieved', data: req.body});
 });
@@ -76,7 +76,7 @@ app.put('/api/v1/jobs/:id', (req, res) => {
       position,
     };
     const modificatiedArray = [...otherJobs, editedJob];
-    res.status(200).json({job: editedJob});
+    res.status(200).json({job: modificatiedArray});
   }
 });
 app.delete('/api/v1/jobs/:id', (req, res) => {
