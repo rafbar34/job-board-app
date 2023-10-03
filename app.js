@@ -52,6 +52,7 @@ app.get('/api/v1/jobs/:id', (req, res) => {
 
   const singleJob = jobs.find((job) => job.id === id);
   if (!singleJob) {
+    throw new Error('job with this id isnt exist')
     return res.status(404).json({message: 'Error, Job dosent exist'});
   } else {
     res.status(200).json({job: singleJob});
@@ -91,6 +92,13 @@ app.delete('/api/v1/jobs/:id', (req, res) => {
   }
 });
 
+app.use('*', (req, res) => {
+  res.status(200).json({msg: 'not found'});
+});
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({msg: 'something went wrong'});
+});
 app.listen(process.env.PORT, () => {
   console.log('server Runneing...');
 });
