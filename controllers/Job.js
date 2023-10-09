@@ -1,13 +1,10 @@
 import {nanoid} from 'nanoid';
 import JobModel from '../models/JobModel.js';
 
-let jobs = [
-  {id: nanoid(), company: 'apple', position: 'front-end'},
-  {id: nanoid(), company: 'apple', position: 'front-end'},
-];
 
 export const getAllJobs = async (req, res) => {
   try {
+    const jobs = await JobModel.find({});
     res.status(200).json({jobs});
   } catch (err) {
     res.status(500).json({msg: 'server error', reason: err});
@@ -25,7 +22,7 @@ export const createNewJob = async (req, res) => {
 export const getSingleJob = async (req, res) => {
   const {id} = req.params;
   try {
-    const singleJob = jobs.find((job) => job.id === id);
+    const singleJob = JobModel.findById(id);
     if (!singleJob) {
       throw new Error('job with this id isnt exist');
     } else {
@@ -36,15 +33,16 @@ export const getSingleJob = async (req, res) => {
   }
 };
 
-export const updateJob = (req, res) => {
+export const updateJob = async (req, res) => {
   const {id} = req.params;
-  const {company, position} = req.body;
   try {
     if (!company || !position) {
       return res.status(400).json({message: 'Error, some values are empty'});
     }
-    const singleJob = jobs.find((job) => job.id === id);
-    if (!singleJob) {
+    const updatedJob = await JobModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!updatedJob) {
       return res.status(404).json({message: 'Error, Job dosent exist'});
     } else {
       const otherJobs = jobs.filter((job) => job.id !== id);
@@ -61,15 +59,14 @@ export const updateJob = (req, res) => {
   }
 };
 
-export const deleteJob = (req, res) => {
+export const deleteJob = async (req, res) => {
   const {id} = req.params;
+  const removedJob = await JobModel.findByIdAndDelete(id);
   try {
-    const singleJob = jobs.find((job) => job.id === id);
-    if (!singleJob) {
+    if (!removedJob) {
       return res.status(404).json({message: 'Error, Job dosent exist'});
     } else {
-      jobs.filter((job) => job.id !== id);
-      res.status(200).json({message: 'job has been deleted'});
+      res.status(200).json({message: 'job has been deleted', job: removedJob});
     }
   } catch (err) {
     res.status(500).json({msg: 'server error', reason: err});
