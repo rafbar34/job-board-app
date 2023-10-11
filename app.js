@@ -5,6 +5,8 @@ import express from 'express';
 import morgan from 'morgan';
 import routerJob from './routes/index.js';
 import mongoose from 'mongoose';
+import {body, validationResult} from 'express-validator';
+import {validateTest} from './middleware/validationMiddleware.js';
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
@@ -12,7 +14,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
-app.post('/', (req, res) => {
+app.post('/api/v1/test', validateTest, (req, res) => {
+  const {name} = req.body;
   res.json({message: 'data recieved', data: req.body});
 });
 app.use('/api/v1/jobs', routerJob);
@@ -33,5 +36,5 @@ try {
   });
 } catch (err) {
   console.log(err);
-  process.exit(1)
+  process.exit(1);
 }
