@@ -2,6 +2,7 @@ import {body, param, validationResult} from 'express-validator';
 import {JOB_STATUS} from '../routes/utils/constants.js';
 import mongoose from 'mongoose';
 import JobModel from '../models/JobModel.js';
+import UserModel from '../models/UserModel.js';
 
 const validationErrors = (validateValues) => {
   return [
@@ -38,4 +39,33 @@ export const validateIdParam = validationErrors([
       throw new Error('job with this id isnt exist');
     }
   }),
+]);
+export const validateRegister = validationErrors([
+  body('name').isEmpty().withMessage('enter name'),
+  body('email')
+    .isEmail()
+    .withMessage('incorrect email')
+    .isEmpty()
+    .withMessage('enter email')
+    .custom(async (email) => {
+      const user = await UserModel.findOne({email});
+      if (user) {
+        throw new Error('email already exist');
+      }
+    }),
+  body('password').isStrongPassword().withMessage('password is to weak'),
+]);
+export const validateLogin = validationErrors([
+  body('email')
+    .isEmail()
+    .withMessage('incorrect email')
+    .isEmpty()
+    .withMessage('enter email')
+    .custom(async (email) => {
+      const user = await UserModel.findOne({email});
+      if (user) {
+        throw new Error('email already exist');
+      }
+    }),
+  body('password').isStrongPassword().withMessage('password is to weak'),
 ]);

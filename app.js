@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import routerJob from './routes/index.js';
 import mongoose from 'mongoose';
 import {body, validationResult} from 'express-validator';
+import routerAuth from './routes/authRouter.js';
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 
+app.use('/api/v1/auth', routerAuth);
 app.use('/api/v1/jobs', routerJob);
 
 app.use('*', (req, res) => {
