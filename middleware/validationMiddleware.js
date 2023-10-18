@@ -45,8 +45,8 @@ export const validateRegister = validationErrors([
   body('email')
     .isEmail()
     .withMessage('incorrect email')
-    .isEmpty()
-    .withMessage('enter email')
+    // .isEmpty()
+    // .withMessage('enter email')
     .custom(async (email) => {
       const user = await UserModel.findOne({email});
       if (user) {
@@ -59,12 +59,12 @@ export const validateLogin = validationErrors([
   body('email')
     .isEmail()
     .withMessage('incorrect email')
-    .isEmpty()
-    .withMessage('enter email')
+    // .isEmpty()
+    // .withMessage('enter email')
     .custom(async (email) => {
       const user = await UserModel.findOne({email});
-      if (user) {
-        throw new Error('email already exist');
+      if (!user) {
+        throw new Error('email dosent exist');
       }
     }),
   body('password').isStrongPassword().withMessage('password is to weak'),
