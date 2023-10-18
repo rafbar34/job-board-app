@@ -7,16 +7,19 @@ import routerJob from './routes/index.js';
 import mongoose from 'mongoose';
 import {body, validationResult} from 'express-validator';
 import routerAuth from './routes/authRouter.js';
+import cookieParser from 'cookie-parser';
+import { authenticateUser } from './middleware/authMiddleware.js';
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(cookieParser())
 app.use(express.json());
 
 
 app.use('/api/v1/auth', routerAuth);
-app.use('/api/v1/jobs', routerJob);
+app.use('/api/v1/jobs',authenticateUser, routerJob);
 
 app.use('*', (req, res) => {
   res.status(200).json({msg: 'not found'});

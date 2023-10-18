@@ -24,6 +24,7 @@ export const login = async (req, res) => {
     role: user.role,
   });
   const oneDay = 1000 * 60 * 60 * 24;
+
   console.log(oneDay)
   res.cookie('token', token, {
     httpOnly: true,
