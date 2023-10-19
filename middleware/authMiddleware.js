@@ -8,8 +8,19 @@ export const authenticateUser = async (req, res, next) => {
   try {
     const {userId} = verifyJWT(token);
     req.user = {userId};
-    // if(!veryify )
-  } catch (err) {}
+    next();
+  } catch (err) {
+    throw new Error('auth invalid');
+  }
+};
 
-  next();
+export const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user?.role)){
+
+      throw Error('You havent permission')
+    }else{
+      next();
+    }
+  };
 };
