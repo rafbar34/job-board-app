@@ -4,8 +4,7 @@ import {StatusCodes} from 'http-status-codes';
 
 export const getAllJobs = async (req, res) => {
   try {
-    console.log(req)
-    const jobs = await JobModel.find({});
+    const jobs = await JobModel.find({createdBy: req.user.userId});
     res.status(StatusCodes.OK).json({jobs});
   } catch (err) {
     res
@@ -14,6 +13,7 @@ export const getAllJobs = async (req, res) => {
   }
 };
 export const createNewJob = async (req, res) => {
+  req.body.createdBy = req.user.userId;
   try {
     const newJob = await JobModel.create(req.body);
     res.status(StatusCodes.CREATED).json({newJob});
@@ -62,7 +62,7 @@ export const updateJob = async (req, res) => {
       const modificatiedArray = [...otherJobs, editedJob];
       res.status(StatusCodes.OK).json({job: modificatiedArray});
     }
-  } catch {
+  } catch (err) {
     res.status(500).json({msg: 'server error', reason: err});
   }
 };
