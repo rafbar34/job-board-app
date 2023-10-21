@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon app.js",
+    "server":"nodemon server",
+    "client":"cd client && npm run dev",
+    "dev":"concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" ",
     "setup-project": "npm i && cd client && npmi",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
