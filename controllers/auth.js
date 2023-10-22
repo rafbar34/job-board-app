@@ -8,8 +8,7 @@ export const register = async (req, res) => {
   req.body.password = hashedPassword;
 
   const user = await UserModel.create(req.body);
-
-  res.status(StatusCodes.CREATED).json({user});
+  res.status(StatusCodes.CREATED).json({user, msg: 'user is created'});
 };
 export const login = async (req, res) => {
   const email = req.body.email;
@@ -24,15 +23,21 @@ export const login = async (req, res) => {
     role: user.role,
   });
   const oneDay = 1000 * 60 * 60 * 24;
-  res.cookie('token', token, {
-    httpOnly: true,
-    expires: new Date(Date.now()+oneDay),
-    secure: process.env.NODE_ENV === 'production',
-  }).status(StatusCodes.OK).json({msg: 'user logged in'});
+  res
+    .cookie('token', token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: process.env.NODE_ENV === 'production',
+    })
+    .status(StatusCodes.OK)
+    .json({msg: 'user logged in'});
 };
-export const logout = (req,res,next)=>{
-res.cookie('token','logout',{
-  httpOnly:true,
-  expires:new Date(Date.now())
-}).status(StatusCodes.OK).json({msg:'logout'})
-}
+export const logout = (req, res, next) => {
+  res
+    .cookie('token', 'logout', {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .status(StatusCodes.OK)
+    .json({msg: 'logout'});
+};

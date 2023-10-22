@@ -13,8 +13,8 @@ export const AuthWrapper = styled.section`
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
   }
-  .form-input{
-    margin: 1rem 0px
+  .form-input {
+    margin: 1rem 0px;
   }
   h4 {
     text-align: center;
@@ -33,12 +33,24 @@ export const AuthWrapper = styled.section`
     letter-spacing: var(--letter-spacing);
     margin-left: 0.25rem;
   }
+  .error-block {
+    min-height: 2rem;
+    display: flex;
+    color: red;
+    text-align: start;
+    margin: 5px 0px;
+  }
+  .error {
+    min-width: 100px;
+    width: 10rem;
+  }
+  .errors {
+    margin-top: 20px;
+  }
 `;
 export const RegisterWraper = styled.section`
-    .btn-container{
-       display: flex;
-       justify-content: center;
-        
-    }
-
-`
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
+`;

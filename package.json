@@ -2,7 +2,7 @@
   "name": "frontend-experimental-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "server": "nodemon server",
@@ -29,6 +29,7 @@
     "cloudinary": "^1.37.3",
     "concurrently": "^8.0.1",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "datauri": "^4.1.0",
     "dayjs": "^1.11.9",
     "dotenv": "^16.0.3",

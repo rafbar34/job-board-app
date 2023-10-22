@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {UILogo} from '.';
 import {AuthWrapper} from '../css/Auth/AuthPageStyle';
 import {useForm} from 'react-hook-form';
-import {Form, Link} from 'react-router-dom';
+import {Form} from 'react-router-dom';
 import {registerErrors} from '../data/constans/registerInput';
-import {ErrorMessage} from '@hookform/error-message';
 
 export const UIForm = ({onSubmit, registerData, title}) => {
   const {
@@ -21,7 +20,6 @@ export const UIForm = ({onSubmit, registerData, title}) => {
       errorsArray.push(errors[error]);
     }
   }
-  console.log(errorsArray)
   return (
     <AuthWrapper>
       <Form
@@ -53,8 +51,15 @@ export const UIForm = ({onSubmit, registerData, title}) => {
           Submit
         </button>
 
-        {errors &&
-          errorsArray?.map((error) => <div>{error &&`${error?.name}: ${error?.message}`}</div>)}
+        <div className='errors'>
+          {errors &&
+            errorsArray?.map((error) => (
+              <div className='error-block'>
+                <div>{error && `${error?.name}`}</div>
+                <div className='error'>{error && `: ${error?.message}`} </div>
+              </div>
+            ))}
+        </div>
       </Form>
     </AuthWrapper>
   );

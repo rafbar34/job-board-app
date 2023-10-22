@@ -3,13 +3,14 @@ import {Link} from 'react-router-dom';
 import {UIForm} from '../../components/UIForm';
 import {RegisterWraper} from '../../css/Auth/AuthPageStyle';
 import {registerData} from '../../data/constans/registerInput';
-import {useForm} from 'react-hook-form';
+import {registerAPI} from '../../api/api';
 
 export const Register = () => {
   const onSubmit = async (data) => {
+    console.log(data);
     // async request which may result error
     try {
-      // await fetch()
+      const res = await registerAPI({data});
     } catch (e) {
       console.log(e);
       // handle your error

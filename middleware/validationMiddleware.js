@@ -44,10 +44,7 @@ export const validateIdParam = validationErrors([
   }),
 ]);
 export const validateRegister = validationErrors([
-  body('name').isEmpty().withMessage('enter name'),
   body('email')
-    .isEmail()
-    .withMessage('incorrect email')
     // .isEmpty()
     // .withMessage('enter email')
     .custom(async (email) => {
@@ -56,34 +53,21 @@ export const validateRegister = validationErrors([
         throw new Error('email already exist');
       }
     }),
-  body('password').isStrongPassword().withMessage('password is to weak'),
 ]);
 export const validateLogin = validationErrors([
-  body('email')
-    .isEmail()
-    .withMessage('incorrect email')
-    // .isEmpty()
-    // .withMessage('enter email')
-    .custom(async (email) => {
-      const user = await UserModel.findOne({email});
-      if (!user) {
-        throw new Error('email dosent exist');
-      }
-    }),
-  body('password').isStrongPassword().withMessage('password is to weak'),
+  body('email').custom(async (email) => {
+    const user = await UserModel.findOne({email});
+    if (!user) {
+      throw new Error('email dosent exist');
+    }
+  }),
 ]);
 
 export const validateUpdateUserInput = validationErrors([
-  body('name').isEmpty().withMessage('enter name'),
-  body('email')
-    .isEmail()
-    .withMessage('incorrect email')
-    // .isEmpty()
-    // .withMessage('enter email')
-    .custom(async (email, {req}) => {
-      const user = await UserModel.findOne({email});
-      if (user && user.id.ToString() === req.user.userId) {
-        throw new Error('email already exist');
-      }
-    }),
+  body('email').custom(async (email, {req}) => {
+    const user = await UserModel.findOne({email});
+    if (user && user.id.ToString() === req.user.userId) {
+      throw new Error('email already exist');
+    }
+  }),
 ]);
