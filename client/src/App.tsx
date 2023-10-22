@@ -19,7 +19,7 @@ export const checkDefaultTheme = () => {
   document.body.classList.toggle('dark-theme', isDarkTheme);
   return isDarkTheme;
 };
-checkDefaultTheme()
+checkDefaultTheme();
 const router = createBrowserRouter([
   {
     path: '/',
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <DashboardLayout/>,
+        element: <DashboardLayout />,
         children: [
           {
             index: true,
