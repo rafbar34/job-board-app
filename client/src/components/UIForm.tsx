@@ -5,7 +5,7 @@ import {useForm} from 'react-hook-form';
 import {Form} from 'react-router-dom';
 import {registerErrors} from '../data/constans/registerInput';
 
-export const UIForm = ({onSubmit, registerData, title}) => {
+export const UIForm = ({onSubmit, inputData, title, errorsData}) => {
   const {
     register,
     handleSubmit,
@@ -16,6 +16,7 @@ export const UIForm = ({onSubmit, registerData, title}) => {
   let errorsArray = [];
   for (const error in errors) {
     if (Object.prototype.hasOwnProperty.call(errors, error)) {
+      console.log(errors)
       errors[error].name = error;
       errorsArray.push(errors[error]);
     }
@@ -29,7 +30,7 @@ export const UIForm = ({onSubmit, registerData, title}) => {
         <UILogo />
 
         <h4>{title}</h4>
-        {registerData.map((items) => (
+        {inputData.map((items) => (
           <div>
             <label htmlFor='name'>{items.title}</label>
             <input
@@ -42,7 +43,7 @@ export const UIForm = ({onSubmit, registerData, title}) => {
 
         <button
           onClick={() => {
-            registerErrors.forEach(({name, type, message}) =>
+            errorsData.forEach(({name, type, message}) =>
               setError(name, {type, message}, {shouldFocus: true})
             );
           }}

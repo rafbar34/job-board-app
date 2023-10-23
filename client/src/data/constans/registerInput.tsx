@@ -108,3 +108,55 @@ export const registerErrors = [
     name: 'name',
   },
 ];
+export const loginData = [
+  
+  {
+    key: 'email',
+    title: 'E-mail',
+    type: 'email',
+    rules: {
+      required: {
+        value: true,
+        message: 'enter values',
+      },
+      minLength: {
+        value: 4,
+        message: 'you have not enough characters, enter bettwen 4-12',
+      },
+      maxLength: {
+        value: 20,
+        message: 'you have to many characters, enter bettwen 4-20',
+      },
+    },
+  },
+  {
+    key: 'password',
+    title: 'Password',
+    type: 'password',
+    rules: {
+      required: {
+        value: true,
+        message: 'enter values',
+      },
+      minLength: {
+        value: 4,
+        message: 'you have not enough characters, enter bettwen 4-12',
+      },
+    },
+  },
+];
+
+export const loginErrors = [
+ 
+  {
+    type: 'required',
+    name: 'email',
+    message: 'enter values',
+  },
+  {
+    type: 'required',
+    name: 'password',
+  },
+
+  
+];
