@@ -4,7 +4,7 @@ import {UIForm} from '../../components/UIForm';
 import {RegisterWraper} from '../../css/Auth/AuthPageStyle';
 import {registerData, registerErrors} from '../../data/constans/registerInput';
 import {registerAPI} from '../../api/api';
-
+import {toast} from 'react-toastify';
 export const Register = () => {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
@@ -12,9 +12,12 @@ export const Register = () => {
     try {
       const res = await registerAPI({data});
       if (res?.user) {
+        toast.success(res.msg);
         return navigate('/login');
       }
     } catch (e) {
+      console.log(e)
+      toast.error(`Something is wrong:${e?.response?.data?.error??e?.message} `);
       console.log(e);
       // handle your error
     }
