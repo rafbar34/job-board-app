@@ -1,18 +1,22 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {UIForm} from '../../components/UIForm';
 import {RegisterWraper} from '../../css/Auth/AuthPageStyle';
 import {LoginAPI} from '../../api/api';
 import { loginData, loginErrors } from '../../data/constans/registerInput';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
+  const navigate = useNavigate();
   const onSubmit = async (data: object) => {
     try {
       const res =await LoginAPI({data});
       if (res?.token) {
-        console.log('its work');
+        toast.success(res.msg);
+        return navigate('/dashboard')
       }
     } catch (e) {
+      toast.error(`Something is wrong:${e?.response?.data?.error??e?.message} `);
       // handle your error
     }
   };
