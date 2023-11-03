@@ -1,17 +1,23 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const DashboardWrappter = styled.section`
-    .dashboard{
+
+export const AddJobWrapper = styled.section`
+    .addJob{
         display: grid;
         grid-template-columns: 1fr;
     }
 
-    .dashboard-page{
+    .addJob-page{
         width: 90vh;
         margin: 0 auto;
+        padding: 2rem 0;
+    }
+    .addJob-header{
+        width: 90vh;
+        margin: 0 auto;
+    
         border-radius: 16px;
-        padding: 2rem 0rem;
-
+        padding: 2rem 1rem;
     }
     @media (min-width:992px){
         .dashboard{
@@ -22,4 +28,4 @@ export const DashboardWrappter = styled.section`
         width: 90%
     } 
     }
-`;
+`

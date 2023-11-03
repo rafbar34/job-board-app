@@ -20,12 +20,9 @@ const validationErrors = (validateValues) => {
 };
 
 export const validateJobInput = validationErrors([
-  body('company').isEmpty().withMessage('company is required'),
-  body('position').isEmpty().withMessage('position is required'),
-  body('jobLocation').isEmpty().withMessage('job Location is required'),
-  body('jobStatus')
-    .isIn(Object.values(JOB_STATUS))
-    .withMessage('invalid value Job status'),
+  // body('jobStatus')
+  //   .isIn(Object.values(JOB_STATUS))
+  //   .withMessage('invalid value Job status'),
 ]);
 
 export const validateIdParam = validationErrors([

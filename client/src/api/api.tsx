@@ -17,8 +17,20 @@ export const registerAPI = async ({data}) => {
  return response
 };
 export const LoginAPI = async ({data}) => {
-  console.log(data)
   const response = axios.post('http://localhost:1996/api/v1/auth/login', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log(response)
+      return response.data;
+    });
+ return response
+};
+export const AddJobAPI = async ({data}) => {
+  console.log(data,"test")
+  const response = axios.post('http://localhost:1996/api/v1/jobs', data, {
       headers: {
         'Content-Type': 'application/json',
       },
