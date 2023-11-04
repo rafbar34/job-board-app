@@ -22,12 +22,13 @@ export const login = async (req, res) => {
     userId: user._id,
     role: user.role,
   });
-  const oneDay = 1000 * 60 * 60 * 24;
-  res
-    .cookie("token", token, {
-      httpOnly: true,
+  const oneDay = 1000 * 60 * 60 * 24*4;
+  console.log(new Date(Date.now() + oneDay))
+  res.cookie("token", token, {
+      // httpOnly: true,
       expires: new Date(Date.now() + oneDay),
-      secure: process.env.NODE_ENV === "production",
+      secure:false
+
     })
     .status(StatusCodes.OK)
     .json({ msg: "user logged in", token });

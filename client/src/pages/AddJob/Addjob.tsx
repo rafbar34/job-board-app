@@ -7,11 +7,11 @@ import { addJobData, addJobErrors } from "../../data/constans/add-job";
 import { AddJobAPI } from "../../api/api";
 
 export const Addjob = () => {
-  const navigate = useNavigate();
+
   const onSubmit = async (data: object) => {
     try {
      const res = await AddJobAPI({data})
-     console.log(res,"res")
+
     } catch (e) {
       console.log(e)
       toast.error(

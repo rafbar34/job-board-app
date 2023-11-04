@@ -1,10 +1,11 @@
 import React, {createContext, useContext, useState} from 'react';
-import {Outlet} from 'react-router-dom';
+import {Outlet, useNavigate} from 'react-router-dom';
 import {SmallSideBar} from '../../components/SmallSideBar';
 import {BigSiderBar} from '../../components/BigSideBar';
 import {NavBar} from '../../components/NavBar';
 import {DashboardWrappter} from '../../css/Dasboard/DashboardWrapper';
 import { checkDefaultTheme } from '../../App';
+import { logoutAPI } from "../../api/api";
 
 export const DashboardContext = createContext({});
 
@@ -12,7 +13,7 @@ export const DashboardContext = createContext({});
 export const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-
+  const navigation = useNavigate()
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
@@ -26,7 +27,12 @@ export const DashboardLayout = () => {
   };
 
   const logoutUser = async () => {
-    console.log('logout');
+    try{
+      logoutAPI()
+     navigation("/login")
+    }catch(err){
+
+    }
   };
   let user = 'tester';
   return (

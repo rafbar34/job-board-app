@@ -37,11 +37,11 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-app.use(cookieParser());
 app.use(express.json());
-app.get('/api/v1/test', (req, res) => {
-  res.json({msg: 'test'});
-});
+app.use(cookieParser());
+
+
+app.use(cookieParser());
 app.use('/api/v1/auth', routerAuth);
 app.use('/api/v1/users', authenticateUser, userRouter);
 app.use('/api/v1/jobs', authenticateUser, routerJob);

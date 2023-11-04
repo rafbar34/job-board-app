@@ -5,13 +5,14 @@ import {RegisterWraper} from '../../css/Auth/AuthPageStyle';
 import {LoginAPI} from '../../api/api';
 import { loginData, loginErrors } from '../../data/constans/registerInput';
 import { toast } from 'react-toastify';
-
+import Cookie from 'js-cookie'
 export const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const onSubmit = async (data: object) => {
     try {
       const res =await LoginAPI({data});
       if (res?.token) {
+        Cookie.set('token', res?.token, { expires: 100000})
         toast.success(res.msg);
         return navigate('/dashboard')
       }

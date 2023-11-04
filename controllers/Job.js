@@ -13,6 +13,7 @@ export const getAllJobs = async (req, res) => {
   }
 };
 export const createNewJob = async (req, res) => {
+  console.log(req)
   req.body.createdBy = req.user.userId;
   try {
     const newJob = await JobModel.create(req.body);
