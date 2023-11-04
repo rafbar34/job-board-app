@@ -22,13 +22,13 @@ export const login = async (req, res) => {
     userId: user._id,
     role: user.role,
   });
-  const oneDay = 1000 * 60 * 60 * 24*4;
-  console.log(new Date(Date.now() + oneDay))
-  res.cookie("token", token, {
-      // httpOnly: true,
-      expires: new Date(Date.now() + oneDay),
-      secure:false
-
+  const oneDay = 1000 * 60 * 60 * 24;
+  res
+    .cookie("token", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "none",
+      secure: true,
     })
     .status(StatusCodes.OK)
     .json({ msg: "user logged in", token });
@@ -37,7 +37,9 @@ export const logout = (req, res, next) => {
   res
     .cookie("token", "logout", {
       httpOnly: true,
-      expires: new Date(Date.now()),
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "none",
+      secure: true,
     })
     .status(StatusCodes.OK)
     .json({ msg: "logout" });

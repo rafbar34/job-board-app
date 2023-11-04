@@ -19,13 +19,13 @@ export const registerAPI = async ({ data }) => {
 export const LoginAPI = async ({ data }) => {
   const response = axios
     .post("http://localhost:1996/api/v1/auth/login", data, {
-      
+      withCredentials: true,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     })
     .then((response) => {
-      console.log(response);
       return response.data;
     });
   return response;
@@ -33,26 +33,27 @@ export const LoginAPI = async ({ data }) => {
 export const logoutAPI = async () => {
   const response = axios
     .post("http://localhost:1996/api/v1/auth/logout", {
+      withCredentials: true,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     })
     .then((response) => {
-      console.log(response);
       return response.data;
     });
   return response;
 };
 export const AddJobAPI = async ({ data }) => {
-  console.log(data, "test");
   const response = axios
     .post("http://localhost:1996/api/v1/jobs", data, {
+      withCredentials: true,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     })
     .then((response) => {
-      console.log(response);
       return response.data;
     });
   return response;
