@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
-import { JOB_STATUS, JOB_TYPE } from '../routes/utils/constants.js';
+import mongoose from "mongoose";
+import { JOB_STATUS, JOB_TYPE } from "../routes/utils/constants.js";
 
 const JobSchema = new mongoose.Schema(
   {
+    title: String,
     company: String,
     position: String,
-    jobStatus: {
-      type: String,
-      enum: Object.values(JOB_STATUS),
-      default: JOB_STATUS.PENDING,
-    },
+    // jobStatus: {
+    //   type: String,
+    //   enum: Object.values(JOB_STATUS),
+    //   default: JOB_STATUS.PENDING,
+    // },
     jobType: {
       type: String,
       enum: Object.values(JOB_TYPE),
@@ -17,14 +18,14 @@ const JobSchema = new mongoose.Schema(
     },
     jobLocation: {
       type: String,
-      default: 'my city',
+      default: "my city",
     },
-    createdBy:{
-      type:mongoose.Types.ObjectId,
-      ref:"User"
-    }
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
-export default mongoose.model('Job', JobSchema);
+export default mongoose.model("Job", JobSchema);

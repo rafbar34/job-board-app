@@ -7,13 +7,13 @@ import { addJobData, addJobErrors } from "../../data/constans/add-job";
 import { AddJobAPI } from "../../api/api";
 
 export const Addjob = () => {
-
   const onSubmit = async (data: object) => {
     try {
-     const res = await AddJobAPI({data})
-
+      console.log(data);
+      await AddJobAPI({ data });
+      toast.success("Job offer has been created");
     } catch (e) {
-      console.log(e)
+      console.log(e);
       toast.error(
         `Something is wrong:${e?.response?.data?.error ?? e?.message} `
       );
@@ -23,11 +23,8 @@ export const Addjob = () => {
   return (
     <AddJobWrapper>
       <div className="addJob-header">
-
-
         <div>
           <UIForm
-            color="white"
             bgColor="transparent"
             title={"Add job"}
             onSubmit={onSubmit}

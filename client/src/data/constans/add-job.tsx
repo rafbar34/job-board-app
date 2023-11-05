@@ -38,8 +38,8 @@ export const addJobData = [
     },
   },
   {
-    key: "job-type",
-    title: "Job type",
+    key: "jobLocation",
+    title: "Location",
     type: "text",
     rules: {
       required: {
@@ -57,25 +57,47 @@ export const addJobData = [
     },
   },
   {
-    key: "job-status",
-    title: "Job status",
-    type: "text",
-    defaultValue:'pending',
-    rules: {
-      required: {
-        value: true,
-        message: "enter values",
+    key: "job-type",
+    title: "Job type",
+    type: "select",
+    values: [
+      {
+        label: "Intership",
+        value: "intership",
       },
-      minLength: {
-        value: 1,
-        message: "you have not enough characters, enter bettwen 4-25",
+
+      {
+        label: "Part-time",
+        value: "part-time",
       },
-      maxLength: {
-        value: 25,
-        message: "you have not enough characters, enter bettwen 4-25",
+
+      {
+        label: "Full-time",
+        value: "full-time",
       },
-    },
+    ],
   },
+  //   {
+  //     key: "job-status",
+  //     title: "Job status",
+  //     type: "select",
+  //     values: {
+  //       value1: {
+  //         value: "pending",
+  //         name: "Pending",
+  //       },
+  //
+  //       value2: {
+  //         value: "intership",
+  //         name: "intership",
+  //       },
+  //
+  //       value3: {
+  //         value: "full-time",
+  //         name: "full-time",
+  //       },
+  //     },
+  //   },
 ];
 
 export const addJobErrors = [
