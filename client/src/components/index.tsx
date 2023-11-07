@@ -1,1 +1,1 @@
-export {UILogo} from './UILogo';
+export { UILogo } from "./UILogo";

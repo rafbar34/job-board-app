@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const Deletejob = () => {
-  return (
-    <div>Deletejob</div>
-  )
-}
+  return <div>Deletejob</div>;
+};

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SidebarWrapper = styled.aside`
   display: none;
@@ -43,7 +43,7 @@ export const SidebarWrapper = styled.aside`
       padding-left: 3rem;
       color: var(--primary-500);
     }
-    .active{
+    .active {
       color: var(--primary-500);
     }
   }

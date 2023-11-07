@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const AuthWrapper = styled.section`
   min-height: 20vh;

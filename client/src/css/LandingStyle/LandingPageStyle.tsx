@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LandingWrapper = styled.section`
   nav {
@@ -37,11 +37,11 @@ export const LandingWrapper = styled.section`
     padding: 0.75rem 1rem;
   }
   .container {
-  width: var(--fluid-width);
-  max-width: var(--max-width);
-  margin: 0 auto;
-  height:70vh;
-}
+    width: var(--fluid-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    height: 70vh;
+  }
   @media (min-width: 992px) {
     .page {
       grid-template-columns: 1fr 400px;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SidebarWrapper = styled.aside`
   @media (min-width: 992px) {
@@ -38,7 +38,7 @@ export const SidebarWrapper = styled.aside`
     top: 30px;
     left: 50px;
     background-color: transparent;
-    border-color: 'trasparent';
+    border-color: "trasparent";
     font-size: 1rem;
     color: var(--red-dark);
     cursor: pointer;
