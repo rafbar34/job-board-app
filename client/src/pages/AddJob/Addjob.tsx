@@ -9,7 +9,6 @@ import { AddJobAPI } from "../../api/api";
 export const Addjob = () => {
   const onSubmit = async (data: object) => {
     try {
-      console.log(data);
       await AddJobAPI({ data });
       toast.success("Job offer has been created");
     } catch (e) {

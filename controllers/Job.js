@@ -4,7 +4,17 @@ import { StatusCodes } from "http-status-codes";
 
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await JobModel.find({ createdBy: req.user.userId });
+    const jobs = await JobModel.find({});
+    res.status(StatusCodes.OK).json({ jobs });
+  } catch (err) {
+    res
+      .status(StatusCodes.GATEWAY_TIMEOUT)
+      .json({ msg: "server error", reason: err });
+  }
+};
+export const getAllCreatedJobs = async (req, res) => {
+  try {
+    const jobs = await JobModel.find({createdBy: req.user.userId});
     res.status(StatusCodes.OK).json({ jobs });
   } catch (err) {
     res

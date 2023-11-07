@@ -58,3 +58,17 @@ export const AddJobAPI = async ({ data }) => {
     });
   return response;
 };
+export const GetAllJobAPI = async () => {
+  const response = axios
+    .get("http://localhost:1996/api/v1/jobs",{
+      withCredentials: true,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+};
