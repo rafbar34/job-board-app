@@ -8,6 +8,8 @@ export const NavbarWrapper = styled.nav`
   justify-content: center;
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
   background: var(--background-secendary-color);
+  border-radius: 16px;
+  padding: 10px 0px;
   .nav-center {
     display: flex;
     width: 90vw;
@@ -27,9 +29,9 @@ export const NavbarWrapper = styled.nav`
     display: none;
   }
   .logo {
-    display: flex;
-    align-items: center;
-    width: 100px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1.38rem;
   }
   .btn-container {
     display: flex;
@@ -38,11 +40,18 @@ export const NavbarWrapper = styled.nav`
   @media (min-width: 992px) {
     position: sticky;
     top: 0;
+    background: black;
+    opacity: 0.75;
+    z-index: 10;
+    border:1px solid black;
     .nav-center {
       width: 90%;
     }
     .logo {
-      display: none;
+      display: block;
+      margin: 0 auto;
+      height: 40;
+      width:40;
     }
     .logo-text {
       display: block;

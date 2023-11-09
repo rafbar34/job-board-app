@@ -36,9 +36,9 @@ export const Alljobs = () => {
           jobs?.map((job) => {
             const date = new Date(job.updatedAt);
             return (
-              <div className="job-card">
-                <div>{job.title}</div>
-                <div>{job.jobLocation}</div>
+              <div className="job-card scale_hover">
+                <div style={{fontSize:24, color:'green'}}>{job.title}</div>
+                <div style={{}}>{job.jobLocation}</div>
                 <div>{job.jobType}</div>
                 <div>{`${date.getDate()}-${
                   date.getMonth() + 1

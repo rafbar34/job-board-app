@@ -1,10 +1,10 @@
 import React from "react";
 import logo from "../assets/logo.png";
 
-export const UILogo = () => {
+export const UILogo = ({height=70}) => {
   return (
     <img
-      height={70}
+      height={height}
       src={logo}
       className="logo"
       alt=""
