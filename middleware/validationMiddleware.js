@@ -63,7 +63,7 @@ export const validateLogin = validationErrors([
 export const validateUpdateUserInput = validationErrors([
   body("email").custom(async (email, { req }) => {
     const user = await UserModel.findOne({ email });
-    if (user && user.id.ToString() === req.user.userId) {
+    if (user && String(user.id) === String(req.user.userId)) {
       throw new Error("email already exist");
     }
   }),

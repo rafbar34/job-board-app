@@ -55,13 +55,6 @@ export const UIForm = ({
       errorsArray.push(errors[error]);
     }
   }
-  const [selected, setSelected] = useState();
-  const onChange = (args) => {
-    console.log(args[0].nativeEvent.text);
-    return {
-      value: args[0].nativeEvent.text,
-    };
-  };
   return (
     <AuthWrapper>
       <Form

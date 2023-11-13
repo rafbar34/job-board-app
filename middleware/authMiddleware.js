@@ -2,6 +2,7 @@ import {verifyJWT} from '../routes/utils/token.js';
 
 export const authenticateUser = async (req, res, next) => {
   const {token} = req.cookies;
+  console.log(token,"test")
   if (!token) {
     throw new Error('invalid token');
   }

@@ -16,6 +16,19 @@ export const registerAPI = async ({ data }) => {
     });
   return response;
 };
+export const EditProfileAPI = async ({ data }) => {
+  const response = axios
+    .patch("http://localhost:1996/api/v1/users/update-user", data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+};
 export const LoginAPI = async ({ data }) => {
   const response = axios
     .post("http://localhost:1996/api/v1/auth/login", data, {
@@ -60,7 +73,7 @@ export const AddJobAPI = async ({ data }) => {
 };
 export const GetAllJobAPI = async () => {
   const response = axios
-    .get("http://localhost:1996/api/v1/jobs",{
+    .get("http://localhost:1996/api/v1/jobs", {
       withCredentials: true,
       method: "GET",
       headers: {
