@@ -108,7 +108,7 @@ export const UIForm = ({
                 {items.title}
               </label>
               <input
-                style={{ color: isDarkTheme ? "white" : "black" }}
+                style={{ color: !isDarkTheme ? "white" : "black" }}
                 defaultValue={items.defaultValue}
                 type={items.type}
                 className="form-input"

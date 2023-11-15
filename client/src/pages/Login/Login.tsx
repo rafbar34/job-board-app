@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UIForm } from "../../components/UIForm";
 import { RegisterWraper } from "../../css/Auth/AuthPageStyle";
 import { LoginAPI } from "../../api/api";
 import { loginData, loginErrors } from "../../data/constans/authInputs";
 import { toast } from "react-toastify";
+import {useCookies } from "react-cookie";
+
 export const Login = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
   const navigate = useNavigate();
   const onSubmit = async (data: object) => {
     try {
       const res = await LoginAPI({ data });
       if (res?.token) {
         // Cookie.set('token', res?.token, { expires: 100000})
+        setCookie("token", res?.token);
         toast.success(res.msg);
         return navigate("/dashboard");
       }
@@ -22,6 +27,11 @@ export const Login = () => {
       // handle your error
     }
   };
+  useEffect(() => {
+    if (cookies.token) {
+      navigate("/dashboard");
+    }
+  }, [cookies]);
 
   return (
     <RegisterWraper>
