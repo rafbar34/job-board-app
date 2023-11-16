@@ -1,46 +1,92 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AxisOptions, Chart } from "react-charts";
+import { GetStatsAPI } from "../../api/api";
+import { toast } from "react-toastify";
 
+type MyDatum = { date: Date; stars: number };
 export const Stats = () => {
+  const [statsData, setStatsData] = useState();
+  const fetchStats = async () => {
+    try {
+      const res = await GetStatsAPI();
+      setStatsData(res);
+    } catch (err) {
+      toast(`something is wrong:${err.message}`);
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchStats();
+  }, []);
+  useEffect(() => {
+    console.log(statsData);
+  }, [statsData]);
   const data = [
     {
-      label: "Series 1",
+      label: "Full-job",
       data: [
         {
-          primary: "2022-02-03T00:00:00.000Z",
-          likes: 130,
+          date: new Date(),
+          stars: 299320,
         },
         {
-          primary: "2022-03-03T00:00:00.000Z",
-          likes: 150,
+          date: new Date().setDate(1),
+          stars: 220,
         },
+        {
+          date: new Date().setDate(2),
+          stars: 22320,
+        },
+        // ...etc
       ],
     },
     {
-      label: "Series 2",
+      label: "Part-Job",
       data: [
         {
-          primary: "2022-04-03T00:00:00.000Z",
-          likes: 200,
+          date: new Date(),
+          stars: 9320,
         },
         {
-          primary: "2022-05-03T00:00:00.000Z",
-          likes: 250,
+          date: new Date().setDate(1),
+          stars: 1220,
         },
+        {
+          date: new Date().setDate(2),
+          stars: 25320,
+        },
+        // ...etc
+      ],
+    },
+    {
+      label: "Intern",
+      data: [
+        {
+          date: new Date(),
+          stars: 1111,
+        },
+        {
+          date: new Date().setDate(1),
+          stars: 22222,
+        },
+        {
+          date: new Date().setDate(5),
+          stars: 33333,
+        },
+        // ...etc
       ],
     },
   ];
   const primaryAxis = React.useMemo(
-    () => ({
-      getValue: (datum: { primary: string }) => datum.primary,
+    (): AxisOptions<MyDatum> => ({
+      getValue: (datum) => datum.date,
     }),
     []
   );
   const secondaryAxes = React.useMemo(
-    () => [
+    (): AxisOptions<MyDatum>[] => [
       {
-        getValue: (datum: { likes: number }) => datum.likes,
-        elementType: "area",
+        getValue: (datum) => datum.stars,
       },
     ],
     []
@@ -49,7 +95,7 @@ export const Stats = () => {
     <div>
       <div key={"test" + ""}>
         <h1>test</h1>
-        <div style={{height:300, width:300}}>
+        <div style={{ height: 300, width: 300 }}>
           <Chart
             options={{
               data,

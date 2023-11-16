@@ -13,8 +13,8 @@ const JobSchema = new mongoose.Schema(
     // },
     jobType: {
       type: String,
-      enum: Object.values(JOB_TYPE),
-      default: JOB_TYPE.FULL_TIME,
+      // enum: Object.values(JOB_TYPE),
+      // default: JOB_TYPE.FULL_TIME,
     },
     jobLocation: {
       type: String,

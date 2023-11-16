@@ -113,7 +113,7 @@ export const addJobErrors = [
   },
   {
     type: "required",
-    name: "job-type",
+    name: "jobType",
     message: "enter values",
   },
 ];

@@ -60,6 +60,10 @@ export const logoutAPI = async () => {
 export const AddJobAPI = async ({ data }) => {
   const response = axios
     .post("http://localhost:1996/api/v1/jobs", data, {
+      params: {
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTQ0Mjc0NDRlZGUyODBjMTFlMDNkNzciLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMDA1NzUyOSwiZXhwIjoxNzAwMTQzOTI5fQ.A5uUL_Wu34U_pgpsmhBkqReWhXuliSJNaI2ynvzf-cU",
+      },
       withCredentials: true,
       method: "POST",
       headers: {
@@ -74,6 +78,28 @@ export const AddJobAPI = async ({ data }) => {
 export const GetAllJobAPI = async () => {
   const response = axios
     .get("http://localhost:1996/api/v1/jobs", {
+      params: {
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTQ0Mjc0NDRlZGUyODBjMTFlMDNkNzciLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMDA1NzUyOSwiZXhwIjoxNzAwMTQzOTI5fQ.A5uUL_Wu34U_pgpsmhBkqReWhXuliSJNaI2ynvzf-cU",
+      },
+      withCredentials: true,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+};
+export const GetStatsAPI = async () => {
+  const response = axios
+    .get("http://localhost:1996/api/v1/users/stats/app-stats/", {
+      params: {
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTQ0Mjc0NDRlZGUyODBjMTFlMDNkNzciLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMDA1NzUyOSwiZXhwIjoxNzAwMTQzOTI5fQ.A5uUL_Wu34U_pgpsmhBkqReWhXuliSJNaI2ynvzf-cU",
+      },
       withCredentials: true,
       method: "GET",
       headers: {

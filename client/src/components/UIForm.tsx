@@ -75,11 +75,13 @@ export const UIForm = ({
               </label>
 
               <Controller
-                name="job-type"
+                name="jobType"
                 control={control}
                 render={({ field }) => (
                   <Select
-                    onChange={(e) => field.onChange(e.value)}
+                    onChange={(e) => {
+                      field.onChange(e.value);
+                    }}
                     theme={(theme) => ({
                       ...theme,
                       borderRadius: 0,
