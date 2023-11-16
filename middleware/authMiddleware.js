@@ -10,13 +10,14 @@ export const authenticateUser = async (req, res, next) => {
     req.user = { userId };
     next();
   } catch (err) {
+    res.json({msg:err})
     throw new Error("auth invalid");
   }
 };
 
 export const authorizePermissions = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user?.role)) {
+      return (req, res, next) => {
+  if (!roles.includes(req.user?.role)) {
       throw Error("You havent permission");
     } else {
       next();

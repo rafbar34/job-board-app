@@ -1,10 +1,18 @@
 import React, { useContext, useState } from "react";
 import { DashboardContext } from "../pages/Dashboard/DashboardLayout";
 import { LogoutWrapper } from "../css/Auth/LogoutWrapper";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const Logout = () => {
   const [showLogout, setShowLogout] = useState(false);
-  const { user, logoutUser } = useContext(DashboardContext);
+  const { user } = useContext(DashboardContext);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const navigate = useNavigate();
+  const logout =  () => {
+    navigate("/login");
+    removeCookie("token");
+  };
   return (
     <LogoutWrapper>
       <button
@@ -15,7 +23,7 @@ export const Logout = () => {
       </button>
       <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
         <button
-          onClick={logoutUser}
+          onClick={() => logout()}
           type="button"
           className="dropdown-btn">
           logout

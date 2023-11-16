@@ -5,7 +5,7 @@ import { RegisterWraper } from "../../css/Auth/AuthPageStyle";
 import { LoginAPI } from "../../api/api";
 import { loginData, loginErrors } from "../../data/constans/authInputs";
 import { toast } from "react-toastify";
-import {useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 export const Login = () => {
   const [cookies, setCookie] = useCookies(["token"]);
@@ -16,7 +16,13 @@ export const Login = () => {
       const res = await LoginAPI({ data });
       if (res?.token) {
         // Cookie.set('token', res?.token, { expires: 100000})
-        setCookie("token", res?.token);
+        setCookie("token", res?.token, {
+          expires: new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate() + 1
+          ),
+        });
         toast.success(res.msg);
         return navigate("/dashboard");
       }

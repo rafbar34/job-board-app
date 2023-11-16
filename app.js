@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(cookieParser());
 app.use("/api/v1/auth", routerAuth);
 app.use("/api/v1/users", authenticateUser, userRouter);
-app.use("/api/v1/jobs", authenticateUser, routerJob);
+app.use("/api/v1/jobs", routerJob);
 app.use("*", (req, res) => {
   res.status(200).json({ msg: "not found" });
   res.end();

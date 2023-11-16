@@ -25,13 +25,6 @@ export const DashboardLayout = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const logoutUser = async () => {
-    try {
-      await logoutAPI();
-
-      navigation("/login");
-    } catch (err) {}
-  };
   let user = "tester";
   return (
     <DashboardContext.Provider
@@ -41,7 +34,7 @@ export const DashboardLayout = () => {
         toggleDarkTheme,
         toggleSidebar,
         user,
-        logoutUser,
+
       }}>
       <DashboardWrappter>
         <main className="dashboard">

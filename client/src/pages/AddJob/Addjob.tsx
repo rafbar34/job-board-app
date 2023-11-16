@@ -2,14 +2,16 @@ import React from "react";
 import { AddJobWrapper } from "../../css/AddJob/AddJob";
 import { UIForm } from "../../components/UIForm";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { addJobData, addJobErrors } from "../../data/constans/add-job";
 import { AddJobAPI } from "../../api/api";
+import { useCookies } from "react-cookie";
 
 export const Addjob = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+  console.log(cookies);
   const onSubmit = async (data: object) => {
     try {
-      await AddJobAPI({ data });
+      await AddJobAPI({ data, token: cookies.token });
       toast.success("Job offer has been created");
     } catch (e) {
       console.log(e);

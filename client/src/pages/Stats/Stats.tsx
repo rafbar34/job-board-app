@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { AxisOptions, Chart } from "react-charts";
 import { GetStatsAPI } from "../../api/api";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
 
 type MyDatum = { date: Date; stars: number };
 export const Stats = () => {
   const [statsData, setStatsData] = useState();
+  const [cookies, setCookies] = useCookies(["token"]);
   const fetchStats = async () => {
     try {
-      const res = await GetStatsAPI();
+      const res = await GetStatsAPI({ token: cookies.token });
       setStatsData(res);
     } catch (err) {
       toast(`something is wrong:${err.message}`);
