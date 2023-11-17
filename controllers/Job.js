@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import JobModel from "../models/JobModel.js";
 import { StatusCodes } from "http-status-codes";
+import { verifyJWT } from "../routes/utils/token.js";
 
 export const getAllJobs = async (req, res) => {
   try {
@@ -14,7 +15,7 @@ export const getAllJobs = async (req, res) => {
 };
 export const getAllCreatedJobs = async (req, res) => {
   try {
-    const jobs = await JobModel.find({createdBy: req.user.userId});
+    const jobs = await JobModel.find({ createdBy: req.user.userId });
     res.status(StatusCodes.OK).json({ jobs });
   } catch (err) {
     res
@@ -23,7 +24,8 @@ export const getAllCreatedJobs = async (req, res) => {
   }
 };
 export const createNewJob = async (req, res) => {
-  req.body.createdBy = req.user.userId;
+  const { userId } = verifyJWT(req.query.token);
+  req.body.createdBy = userId;
 
   try {
     const newJob = await JobModel.create(req.body);

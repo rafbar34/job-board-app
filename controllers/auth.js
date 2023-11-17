@@ -18,10 +18,13 @@ export const login = async (req, res) => {
   if (!isValidUser) {
     throw new Error("invalid values");
   }
-  const token = createJWT({
-    userId: user._id,
-    role: user.role,
-  });
+  const token = createJWT(
+    {
+      userId: user._id,
+      role: user.role,
+    },
+    req
+  );
   const oneDay = 1000 * 60 * 60 * 24;
   res.status(StatusCodes.OK).json({ msg: "user logged in", token });
 };
