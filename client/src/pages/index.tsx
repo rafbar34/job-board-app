@@ -1,7 +1,7 @@
 export { DashboardLayout} from './Dashboard/DashboardLayout';
 export { LandingPage} from './Landing/LandingPage';
 export { Addjob} from './AddJob/Addjob';
-export { Admin} from './Admin/Admin';
+export { MyJobs} from './MyJobs/MyJobs';
 export { Alljobs} from './AllJobs/Alljobs';
 export { Deletejob} from './DeleteJob/Deletejob';
 export { EditJob} from './EditJob/EditJob';

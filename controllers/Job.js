@@ -53,7 +53,7 @@ export const getSingleJob = async (req, res) => {
 export const updateJob = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!company || !position) {
+    if (!req.body.company || !req.body.position) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "Error, some values are empty" });

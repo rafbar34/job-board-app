@@ -3,5 +3,5 @@ export const links = [
   {title: 'All jobs', path: 'all-jobs'},
   {title: 'stats', path: 'stats'},
   {title: 'Profile', path: 'profile'},
-  {title: 'Admin', path: 'admin'},
+  {title: 'MyJobs', path: 'my-jobs'},
 ];

@@ -5,6 +5,9 @@ const JobSchema = new mongoose.Schema(
   {
     title: String,
     company: String,
+    desc: String,
+    salary: Number,
+    currency:String,
     position: String,
     // jobStatus: {
     //   type: String,

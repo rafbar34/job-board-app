@@ -11,9 +11,10 @@ import {
   Stats,
   Alljobs,
   Profile,
-  Admin,
+  MyJobs,
 } from "./pages";
 import { CookiesProvider } from "react-cookie";
+import { SingleJob } from "./pages/SingleJob/SingleJob";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -57,8 +58,12 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: "admin",
-            element: <Admin />,
+            path: "My-jobs",
+            element: <MyJobs />,
+          },
+          {
+            path: ":id",
+            element: <SingleJob />,
           },
         ],
       },

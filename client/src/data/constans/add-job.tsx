@@ -38,6 +38,55 @@ export const addJobData = [
     },
   },
   {
+    key: "salary",
+    title: "Salary",
+    type: "number",
+    rules: {
+      required: {
+        value: true,
+        message: "enter values",
+      },
+      minLength: {
+        value: 1,
+        message: "you have not enough characters, enter bettwen 4-25",
+      },
+      maxLength: {
+        value: 25,
+        message: "you have not enough characters, enter bettwen 4-25",
+      },
+    },
+  },
+  {
+    key: "desc",
+    title: "Description",
+    type: "text",
+    rules: {
+      required: {
+        value: true,
+        message: "enter values",
+      },
+      minLength: {
+        value: 1,
+        message: "you have not enough characters, enter bettwen 4-25",
+      },
+      maxLength: {
+        value: 500,
+        message: "you have not enough characters, enter bettwen 4-25",
+      },
+    },
+  },
+  {
+    key: "currency",
+    title: "Currency",
+    type: "text",
+    rules: {
+      required: {
+        value: true,
+        message: "enter values",
+      },
+    },
+  },
+  {
     key: "jobLocation",
     title: "Location",
     type: "text",
@@ -109,6 +158,21 @@ export const addJobErrors = [
   {
     type: "required",
     name: "company",
+    message: "enter values",
+  },
+  {
+    type: "required",
+    name: "salary",
+    message: "enter values",
+  },
+  {
+    type: "required",
+    name: "desc",
+    message: "enter values",
+  },
+  {
+    type: "required",
+    name: "currency",
     message: "enter values",
   },
   {

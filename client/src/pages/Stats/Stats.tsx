@@ -4,9 +4,9 @@ import { GetStatsAPI } from "../../api/api";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 
-type MyDatum = { date: Date; stars: number };
+type MyDatum = { date: Date; jobs: number };
 export const Stats = () => {
-  const [statsData, setStatsData] = useState();
+  const [statsData, setStatsData] = useState([]);
   const [cookies, setCookies] = useCookies(["token"]);
   const fetchStats = async () => {
     try {
@@ -20,63 +20,62 @@ export const Stats = () => {
   useEffect(() => {
     fetchStats();
   }, []);
-  useEffect(() => {
-    console.log(statsData);
-  }, [statsData]);
+
   const data = [
     {
+      color: "#1f77b4",
       label: "Full-job",
-      data: [
-        {
-          date: new Date(),
-          stars: 299320,
-        },
-        {
-          date: new Date().setDate(1),
-          stars: 220,
-        },
-        {
-          date: new Date().setDate(2),
-          stars: 22320,
-        },
-        // ...etc
-      ],
+      data: !statsData?.fullTime
+        ? [{ date: new Date(), jobs: 0 }]
+        : statsData?.fullTime.map((item) => {
+            if (item.length === 0) return [{ date: new Date(), jobs: 0 }];
+            return {
+              date: new Date(
+                new Date().getFullYear(),
+                Number(item[0]?.month) - 1,
+                1
+              ),
+              jobs: item.length,
+            };
+          }),
     },
     {
       label: "Part-Job",
-      data: [
-        {
-          date: new Date(),
-          stars: 9320,
-        },
-        {
-          date: new Date().setDate(1),
-          stars: 1220,
-        },
-        {
-          date: new Date().setDate(2),
-          stars: 25320,
-        },
-        // ...etc
-      ],
+      data: !statsData?.partTime
+        ? [{ date: new Date(), jobs: 0 }]
+        : statsData?.partTime.map((item) => {
+            if (item.length === 0) {
+              return [{ date: new Date(), jobs: 0 }];
+            } else {
+              return {
+                date: new Date(
+                  new Date().getFullYear(),
+                  Number(item[0]?.month) - 1,
+                  1
+                ),
+                jobs: Number(item.length),
+              };
+            }
+          }),
     },
     {
       label: "Intern",
-      data: [
-        {
-          date: new Date(),
-          stars: 1111,
-        },
-        {
-          date: new Date().setDate(1),
-          stars: 22222,
-        },
-        {
-          date: new Date().setDate(5),
-          stars: 33333,
-        },
-        // ...etc
-      ],
+      data: !statsData?.intern
+        ? [{ date: new Date(), jobs: 0 }]
+        : statsData?.intern.map((item) => {
+            if (item.length === 0) {
+              return [{ date: new Date(), jobs: 0 }];
+            } else {
+              return {
+                date: new Date(
+                  new Date().getFullYear(),
+                  Number(item[0]?.month) - 1,
+                  1
+                ),
+                jobs: Number(item.length),
+              };
+            }
+          }),
     },
   ];
   const primaryAxis = React.useMemo(
@@ -88,7 +87,7 @@ export const Stats = () => {
   const secondaryAxes = React.useMemo(
     (): AxisOptions<MyDatum>[] => [
       {
-        getValue: (datum) => datum.stars,
+        getValue: (datum) => datum.jobs,
       },
     ],
     []
@@ -96,8 +95,8 @@ export const Stats = () => {
   return (
     <div>
       <div key={"test" + ""}>
-        <h1>test</h1>
-        <div style={{ height: 300, width: 300 }}>
+        <h1>Stats</h1>
+        <div style={{ height: 700, marginTop: 10 }}>
           <Chart
             options={{
               data,

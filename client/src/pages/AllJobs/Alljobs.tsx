@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { GetAllJobAPI } from "../../api/api";
 import { toast } from "react-toastify";
 import { AllJobWrapper } from "../../css/AllJobs/ALlJobs";
+import { useNavigate } from "react-router-dom";
 
 export const Alljobs = () => {
   const [fetchedJobs, setFetchedJobs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const FetchAllJobs = async () => {
     try {
       setLoading(true);
@@ -28,7 +30,7 @@ export const Alljobs = () => {
     return <div>Loading</div>;
   }
   const { jobs } = fetchedJobs;
-  console.log(jobs);
+
   return (
     <AllJobWrapper>
       <div className="allJob">
@@ -36,14 +38,21 @@ export const Alljobs = () => {
           jobs?.map((job) => {
             const date = new Date(job.updatedAt);
             return (
-              <div className="job-card scale_hover">
-                <div style={{fontSize:24, color:'green'}}>{job.title}</div>
-                <div style={{}}>{job.jobLocation}</div>
-                <div>{job.jobType}</div>
-                <div>{`${date.getDate()}-${
-                  date.getMonth() + 1
-                }-${date.getFullYear()}`}</div>
-              </div>
+              <button
+                onClick={() => {
+                  navigate(`/dashboard/${job._id}`);
+                }}>
+                <div className="job-card scale_hover">
+                  <div style={{ fontSize: 24, color: "green" }}>
+                    {job.title}
+                  </div>
+                  <div style={{}}>{job.jobLocation}</div>
+                  <div>{job.jobType}</div>
+                  <div>{`${date.getDate()}-${
+                    date.getMonth() + 1
+                  }-${date.getFullYear()}`}</div>
+                </div>
+              </button>
             );
           })}
       </div>
