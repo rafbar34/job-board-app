@@ -47,14 +47,40 @@ export const UIForm = ({
     control,
     formState: { errors },
   } = useForm();
+  const [file, setFile] = useState<null | string>(null);
   const { isDarkTheme } = useContext(DashboardContext);
-  let errorsArray = [];
+  const errorsArray = [];
   for (const error in errors) {
     if (Object.prototype.hasOwnProperty.call(errors, error)) {
       errors[error].name = error;
       errorsArray.push(errors[error]);
     }
   }
+  async function getBase64(file) {
+    const rawFile = file.target.files[0];
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(rawFile);
+      reader.onload = (e) => {
+        setFile(reader.result);
+        resolve(reader.result);
+      };
+      if (
+        rawFile.type !== "image/png" &&
+        rawFile.type !== "image/jpg" &&
+        rawFile.type !== "image/jpeg"
+      ) {
+        window.alert("File does not support. You must use .png or .jpg ");
+        return (reader.onerror = reject);
+      }
+      if (rawFile.size > 5e6) {
+        window.alert("Please upload a file smaller than 5 MB");
+        return (reader.onerror = reject);
+      }
+      reader.onerror = reject;
+    });
+  }
+
   return (
     <AuthWrapper>
       <Form
@@ -67,15 +93,17 @@ export const UIForm = ({
         <h4>{title}</h4>
         {inputData.map((items: InputProps) =>
           items.type === "select" ? (
-            <div>
-              <label
-                style={{ color: isDarkTheme ? "white" : "black" }}
-                htmlFor="name">
-                {items.title}
-              </label>
+            <div key={items.key}>
+              <div style={{ marginBottom: 5, marginTop: 5 }}>
+                <label
+                  style={{ color: isDarkTheme ? "white" : "black" }}
+                  htmlFor="name">
+                  {items.title}
+                </label>
+              </div>
 
               <Controller
-                name="jobType"
+                name={items.key}
                 control={control}
                 render={({ field }) => (
                   <Select
@@ -85,7 +113,6 @@ export const UIForm = ({
                     theme={(theme) => ({
                       ...theme,
                       borderRadius: 0,
-                      backgroundColor: "red",
                       colors: {
                         ...theme.colors,
                         text: "#3599B8",
@@ -102,8 +129,38 @@ export const UIForm = ({
                 rules={{ required: true }}
               />
             </div>
+          ) : items.type === "file" ? (
+            <div key={items.key}>
+              <label
+                htmlFor="name"
+                style={{ color: isDarkTheme ? "white" : "black" }}>
+                {items.title}
+              </label>
+              <Controller
+                name={items.key}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    style={{ color: !isDarkTheme ? "white" : "black" }}
+                    defaultValue={items.defaultValue}
+                    type={items.type}
+                    accept="image/png, image/jpeg"
+                    className="form-input"
+                    onChange={async (e) => field.onChange(await getBase64(e))}
+                  />
+                )}
+              />
+
+              {file && (
+                <img
+                  height={130}
+                  width={110}
+                  src={file}
+                />
+              )}
+            </div>
           ) : (
-            <div>
+            <div key={items.key}>
               <label
                 htmlFor="name"
                 style={{ color: isDarkTheme ? "white" : "black" }}>
@@ -133,8 +190,10 @@ export const UIForm = ({
 
         <div className="errors">
           {errors &&
-            errorsArray?.map((error) => (
-              <div className="error-block">
+            errorsArray?.map((error, index) => (
+              <div
+                key={index}
+                className="error-block">
                 <div>{error && `${error?.name}`}</div>
                 <div className="error">{error && `: ${error?.message}`} </div>
               </div>

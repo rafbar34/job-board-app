@@ -4,10 +4,13 @@ import { JOB_STATUS, JOB_TYPE } from "../routes/utils/constants.js";
 const JobSchema = new mongoose.Schema(
   {
     title: String,
+    logo: String,
     company: String,
     desc: String,
     salary: Number,
-    currency:String,
+    currency: {
+      type: String,
+    },
     position: String,
     // jobStatus: {
     //   type: String,
@@ -16,7 +19,7 @@ const JobSchema = new mongoose.Schema(
     // },
     jobType: {
       type: String,
-      // enum: Object.values(JOB_TYPE),
+
       // default: JOB_TYPE.FULL_TIME,
     },
     jobLocation: {

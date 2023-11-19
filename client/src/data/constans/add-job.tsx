@@ -1,5 +1,26 @@
 export const addJobData = [
   {
+    key: "logo",
+    title: "Logo",
+    type: "file",
+    values: [
+      {
+        label: "Intership",
+        value: "intership",
+      },
+
+      {
+        label: "Part-time",
+        value: "part-time",
+      },
+
+      {
+        label: "Full-time",
+        value: "full-time",
+      },
+    ],
+  },
+  {
     key: "title",
     title: "Title",
     type: "text",
@@ -75,17 +96,7 @@ export const addJobData = [
       },
     },
   },
-  {
-    key: "currency",
-    title: "Currency",
-    type: "text",
-    rules: {
-      required: {
-        value: true,
-        message: "enter values",
-      },
-    },
-  },
+
   {
     key: "jobLocation",
     title: "Location",
@@ -104,6 +115,27 @@ export const addJobData = [
         message: "you have not enough characters, enter bettwen 4-25",
       },
     },
+  },
+  {
+    key: "currency",
+    title: "Currency",
+    type: "select",
+    values: [
+      {
+        label: "EURO",
+        value: "euro",
+      },
+
+      {
+        label: "PLN",
+        value: "pln",
+      },
+
+      {
+        label: "USD",
+        value: "usd",
+      },
+    ],
   },
   {
     key: "job-type",
@@ -126,6 +158,7 @@ export const addJobData = [
       },
     ],
   },
+
   //   {
   //     key: "job-status",
   //     title: "Job status",
@@ -177,7 +210,7 @@ export const addJobErrors = [
   },
   {
     type: "required",
-    name: "jobType",
+    name: "job-type",
     message: "enter values",
   },
 ];

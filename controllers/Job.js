@@ -2,12 +2,26 @@ import { nanoid } from "nanoid";
 import JobModel from "../models/JobModel.js";
 import { StatusCodes } from "http-status-codes";
 import { verifyJWT } from "../routes/utils/token.js";
-
+import fs from "fs";
+import path from "path";
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await JobModel.find({});
-    res.status(StatusCodes.OK).json({ jobs });
+    let jobsWithLogo = [];
+    jobs.forEach((element) => {
+      if (!element.logo) {
+        jobsWithLogo.push(element);
+      } else {
+        const file = fs.readFileSync(`images/${element.title}.png`);
+        const base64data = Buffer.from(file, "binary").toString("base64");
+        element.logo = base64data;
+        jobsWithLogo.push( element );
+      }
+    });
+
+    res.status(StatusCodes.OK).json({ jobsWithLogo });
   } catch (err) {
+    console.log(err);
     res
       .status(StatusCodes.GATEWAY_TIMEOUT)
       .json({ msg: "server error", reason: err });
@@ -25,8 +39,17 @@ export const getAllCreatedJobs = async (req, res) => {
 };
 export const createNewJob = async (req, res) => {
   const { userId } = verifyJWT(req.query.token);
-  req.body.createdBy = userId;
+  var base64Data = req.body.logo.replace(/^data:image\/png;base64,/, "");
 
+  fs.writeFile(
+    `images/${req.body.title}.png`,
+    base64Data,
+    "base64",
+    function (err) {
+      console.log(err);
+    }
+  );
+  req.body.logo = `images/${req.body.title}.png`;
   try {
     const newJob = await JobModel.create(req.body);
     res.status(StatusCodes.CREATED).json({ newJob });

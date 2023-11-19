@@ -5,6 +5,7 @@ import express from "express";
 import morgan from "morgan";
 import routerJob from "./routes/index.js";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import { body, validationResult } from "express-validator";
 import routerAuth from "./routes/authRouter.js";
 import cookieParser from "cookie-parser";
@@ -15,6 +16,14 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "10mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use(
   cors({
     origin: true,
@@ -34,7 +43,7 @@ app.use("*", (req, res) => {
   res.end();
 });
 app.use((err, req, res, next) => {
-  res.status(500).json({ msg: "something went wrong" });
+  res.status(500).json({ msg: "something went wrong", err: err });
   res.end();
 });
 try {

@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 
 export const Addjob = () => {
   const [cookies, setCookie] = useCookies(["token"]);
-  console.log(cookies);
   const onSubmit = async (data: object) => {
     try {
       await AddJobAPI({ data, token: cookies.token });
