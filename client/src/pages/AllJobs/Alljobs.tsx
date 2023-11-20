@@ -31,7 +31,6 @@ export const Alljobs = () => {
     return <div>Loading</div>;
   }
   const { jobsWithLogo } = fetchedJobs;
-  console.log(jobsWithLogo);
   return (
     <AllJobWrapper>
       <div className="allJob">

@@ -8,10 +8,19 @@ export const AllJobWrapper = styled.section`
     grid-column-gap: 5px;
     grid-row-gap: 5px;
   }
-  .scale_hover:hover{
+  .scale_hover:hover {
     scale: 1.01;
     transition: 0.5s;
-}
+  }
+  .tools {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+  }
+  .editBtn {
+    background-color: transparent;
+  }
 
   .job-card {
     transition: 0.5s;

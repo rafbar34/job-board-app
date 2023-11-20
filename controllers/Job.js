@@ -15,7 +15,7 @@ export const getAllJobs = async (req, res) => {
         const file = fs.readFileSync(`images/${element.title}.png`);
         const base64data = Buffer.from(file, "binary").toString("base64");
         element.logo = base64data;
-        jobsWithLogo.push( element );
+        jobsWithLogo.push(element);
       }
     });
 
@@ -28,9 +28,21 @@ export const getAllJobs = async (req, res) => {
   }
 };
 export const getAllCreatedJobs = async (req, res) => {
+  const { userId } = verifyJWT(req.query.token);
   try {
-    const jobs = await JobModel.find({ createdBy: req.user.userId });
-    res.status(StatusCodes.OK).json({ jobs });
+    const jobs = await JobModel.find({ createdBy: userId });
+    let jobsWithLogo = [];
+    jobs.forEach((element) => {
+      if (!element.logo) {
+        jobsWithLogo.push(element);
+      } else {
+        const file = fs.readFileSync(`images/${element.title}.png`);
+        const base64data = Buffer.from(file, "binary").toString("base64");
+        element.logo = base64data;
+        jobsWithLogo.push(element);
+      }
+    });
+    res.status(StatusCodes.OK).json({ jobsWithLogo });
   } catch (err) {
     res
       .status(StatusCodes.GATEWAY_TIMEOUT)
@@ -60,9 +72,11 @@ export const createNewJob = async (req, res) => {
 
 export const getSingleJob = async (req, res) => {
   const { id } = req.params;
+
   try {
     const singleJob = await JobModel.findById(id);
     if (!singleJob) {
+      res.status(StatusCodes.NOT_FOUND).json({ job: "not found" });
       throw new Error("job with this id isnt exist");
     } else {
       res.status(StatusCodes.OK).json({ job: singleJob });
@@ -74,14 +88,20 @@ export const getSingleJob = async (req, res) => {
 };
 
 export const updateJob = async (req, res) => {
-  const { id } = req.params;
+  const { userId } = verifyJWT(req.query.token);
+console.log(userId)
   try {
-    if (!req.body.company || !req.body.position) {
+    if (
+      !req.body.company ||
+      !req.body.position ||
+      req.body.salary ||
+      req.body.desc
+    ) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "Error, some values are empty" });
     }
-    const updatedJob = await JobModel.findByIdAndUpdate(id, req.body, {
+    const updatedJob = await JobModel.findByIdAndUpdate(userId, req.body, {
       new: true,
     });
     if (!updatedJob) {
@@ -89,14 +109,7 @@ export const updateJob = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Error, Job dosent exist" });
     } else {
-      const otherJobs = jobs.filter((job) => job.id !== id);
-      const editedJob = {
-        id: id,
-        company,
-        position,
-      };
-      const modificatiedArray = [...otherJobs, editedJob];
-      res.status(StatusCodes.OK).json({ job: modificatiedArray });
+      res.status(StatusCodes.OK).json({ job: updatedJob });
     }
   } catch (err) {
     res.status(500).json({ msg: "server error", reason: err });

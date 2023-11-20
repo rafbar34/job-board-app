@@ -26,9 +26,9 @@ export const validateJobInput = validationErrors([
 ]);
 
 export const validateIdParam = validationErrors([
-  param("id").custom(async (value, { req }) => {
+  param("token").custom(async (value, { req }) => {
     const isValidId = mongoose.Types.ObjectId.isValid(value);
-    if (!isValidId) throw new Error("invalid id");
+    if (!isValidId) throw new Error("invalid token");
     const singleJob = await JobModel.findById(value);
     if (!singleJob) {
       throw new Error("job with this id isnt exist");

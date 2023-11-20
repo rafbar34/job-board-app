@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UILogo } from ".";
 import { AuthWrapper } from "../css/Auth/AuthPageStyle";
 import {
@@ -27,6 +27,7 @@ type UIFormProps = {
   color: string;
   bgColor: string;
   inputData: InputProps[];
+  defaultValue: object | undefined;
   errorsData: Array<{
     name: string;
     type: string;
@@ -39,12 +40,14 @@ export const UIForm = ({
   title,
   bgColor,
   errorsData,
+  defaultValue,
 }: UIFormProps) => {
   const {
     register,
     handleSubmit,
     setError,
     control,
+    setValue,
     formState: { errors },
   } = useForm();
   const [file, setFile] = useState<null | string>(null);
@@ -80,7 +83,15 @@ export const UIForm = ({
       reader.onerror = reject;
     });
   }
-
+  useEffect(() => {
+    if (defaultValue) {
+      const newArray = Object.entries(defaultValue);
+      console.log(newArray);
+      newArray.forEach((element) => {
+        setValue(element[0], element[1]);
+      });
+    }
+  }, [defaultValue]);
   return (
     <AuthWrapper>
       <Form
@@ -113,6 +124,7 @@ export const UIForm = ({
                     theme={(theme) => ({
                       ...theme,
                       borderRadius: 0,
+
                       colors: {
                         ...theme.colors,
                         text: "#3599B8",

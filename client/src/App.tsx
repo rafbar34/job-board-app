@@ -41,17 +41,11 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: <DashboardLayout />,
         children: [
-          {
-            index: true,
-            element: <Addjob />,
-          },
+          { index: true, path: "all-jobs", element: <Alljobs /> },
+          { path: ":status/:id", element: <Addjob /> },
           {
             path: "stats",
             element: <Stats />,
-          },
-          {
-            path: "all-jobs",
-            element: <Alljobs />,
           },
           {
             path: "profile",
