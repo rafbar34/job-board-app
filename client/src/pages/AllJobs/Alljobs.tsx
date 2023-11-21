@@ -13,7 +13,7 @@ export const Alljobs = () => {
     try {
       setLoading(true);
       const res = await GetAllJobAPI();
-      setFetchedJobs(res);
+      setFetchedJobs(res ?? []);
       setLoading(false);
     } catch (e) {
       console.log(e);

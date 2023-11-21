@@ -9,7 +9,7 @@ export const SingleJob = () => {
   const fetchSingleJobData = async () => {
     try {
       const res = await GetSingleJob({ id });
-      setData(res.job);
+      setData(res.job ?? []);
     } catch (err) {
       console.log(err);
     }
@@ -17,7 +17,6 @@ export const SingleJob = () => {
   useEffect(() => {
     fetchSingleJobData();
   }, []);
-  console.log(data);
   if (!data) return;
   return (
     <SingleJobWrapper>

@@ -13,7 +13,6 @@ export const SidebarWrapper = styled.aside`
     z-index: -1;
     opacity: 0;
     transition: var(--transition);
-    visibility: hidden;
   }
   .show-sidebar {
     z-index: 99;
@@ -24,7 +23,13 @@ export const SidebarWrapper = styled.aside`
     justify-content: center;
   }
   .content {
-    background: white;
+    /* From https://css.glass */
+    background: rgba(16, 16, 16, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.6px);
+    -webkit-backdrop-filter: blur(11.6px);
+    border: 1px solid rgba(16, 16, 16, 0.3);
     width: var(--fluid-width);
     height: 95vh;
     border-radius: var(--border-radius);

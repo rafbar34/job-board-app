@@ -24,9 +24,6 @@ export const NavbarWrapper = styled.nav`
     display: flex;
     align-items: center;
   }
-  .logo-text {
-    display: none;
-  }
   .logo {
     display: block;
     margin: 0 auto;

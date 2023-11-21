@@ -11,7 +11,6 @@ export const Addjob = () => {
   const [cookies, setCookie] = useCookies(["token"]);
   const { status, id } = useParams();
   const { state } = useLocation();
-  console.log(status, id, state.job);
   const onSubmit = async (data: object) => {
     if (status === "add") {
       try {

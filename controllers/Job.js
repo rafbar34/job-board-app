@@ -51,21 +51,24 @@ export const getAllCreatedJobs = async (req, res) => {
 };
 export const createNewJob = async (req, res) => {
   const { userId } = verifyJWT(req.query.token);
-  var base64Data = req.body.logo.replace(/^data:image\/png;base64,/, "");
+  if (req.body.logo) {
+    var base64Data = req.body.logo.replace(/^data:image\/png;base64,/, "");
 
-  fs.writeFile(
-    `images/${req.body.title}.png`,
-    base64Data,
-    "base64",
-    function (err) {
-      console.log(err);
-    }
-  );
-  req.body.logo = `images/${req.body.title}.png`;
+    fs.writeFile(
+      `images/${req.body.title}.png`,
+      base64Data,
+      "base64",
+      function (err) {
+        console.log(err);
+      }
+    );
+    req.body.logo = `images/${req.body.title}.png`;
+  }
   try {
     const newJob = await JobModel.create(req.body);
     res.status(StatusCodes.CREATED).json({ newJob });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ msg: "server error", reason: err });
   }
 };
@@ -89,7 +92,7 @@ export const getSingleJob = async (req, res) => {
 
 export const updateJob = async (req, res) => {
   const { userId } = verifyJWT(req.query.token);
-console.log(userId)
+  console.log(userId);
   try {
     if (
       !req.body.company ||
