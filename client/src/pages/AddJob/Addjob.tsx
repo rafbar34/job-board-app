@@ -24,7 +24,18 @@ export const Addjob = () => {
         );
         // handle your error
       }
-    } 
+    } else {
+      try {
+        await EditJobAPI({ data, token: cookies.token });
+        toast.success("Job offer has been Updated");
+      } catch (e) {
+        console.log(e);
+        toast.error(
+          `Something is wrong:${e?.response?.data?.error ?? e?.message} `
+        );
+        // handle your error
+      }
+    }
   };
 
   return (

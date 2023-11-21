@@ -23,7 +23,9 @@ export const SingleJob = () => {
     <SingleJobWrapper>
       <div className="container">
         <div className="title">{data.title}</div>
-        <div className="type">Type: {data?.jobType.toUpperCase()}</div>
+        <div className="type">
+          Type: {(data?.jobType ?? "this doesn't exist").toUpperCase()}
+        </div>
         <div className="desc">{data.desc}</div>
         <div className="salary">
           salary: {data.salary} {data.currency}
