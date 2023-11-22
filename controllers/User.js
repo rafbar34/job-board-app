@@ -1,9 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import UserModel from "../models/UserModel.js";
 import JobModel from "../models/JobModel.js";
+import { verifyJWT } from "../routes/utils/token.js";
 
 export const getCurrentUser = async (req, res) => {
-  const user = await UserModel.findOne({ _id: req.user.userId });
+  const { userId } = verifyJWT(req.query.token);
+  const user = await UserModel.findOne({ _id: userId });
   const userWithoutPassword = user.toJSON();
   if (user) {
     res.status(StatusCodes.OK).json({ user: userWithoutPassword });
@@ -32,22 +34,21 @@ export const getApplicationStats = async (req, res) => {
     jobType: "full-time",
   });
   const partTime = await JobModel.find({
-    jobType:"part-time",
+    jobType: "part-time",
   });
   const intern = await JobModel.find({
     jobType: "intership",
   });
+  console.log(partTime, intern);
   const fulltimeArray = sortByMonth(fullTime);
   const partTimeArray = sortByMonth(partTime);
   const internArray = sortByMonth(intern);
-  res
-    .status(StatusCodes.OK)
-    .json({
-      jobs,
-      fullTime: fulltimeArray,
-      partTime: partTimeArray,
-      intern: internArray,
-    });
+  res.status(StatusCodes.OK).json({
+    jobs,
+    fullTime: fulltimeArray,
+    partTime: partTimeArray,
+    intern: internArray,
+  });
 };
 export const updateUser = async (req, res) => {
   const obj = { ...req.body };

@@ -122,9 +122,43 @@ export const GetSingleJob = async ({ id }) => {
     });
   return response;
 };
+export const DeleteSingleJob = async ({ id, token }) => {
+  const response = axios
+    .delete(`http://localhost:1996/api/v1/jobs/${id}`, {
+      params: {
+        token: token,
+      },
+      withCredentials: true,
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+};
 export const GetStatsAPI = async ({ token }) => {
   const response = axios
     .get("http://localhost:1996/api/v1/users/stats/app-stats/", {
+      params: {
+        token: token,
+      },
+      withCredentials: true,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+};
+export const GetCurrentUserAPI = async ({ token }) => {
+  const response = axios
+    .get("http://localhost:1996/api/v1/users/current-user", {
       params: {
         token: token,
       },

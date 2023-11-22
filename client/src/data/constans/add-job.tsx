@@ -138,7 +138,7 @@ export const addJobData = [
     ],
   },
   {
-    key: "job-type",
+    key: "jobType",
     title: "Job type",
     type: "select",
     values: [
@@ -210,7 +210,7 @@ export const addJobErrors = [
   },
   {
     type: "required",
-    name: "job-type",
+    name: "jobType",
     message: "enter values",
   },
 ];

@@ -7,6 +7,7 @@ export const LogoutWrapper = styled.div`
     align-items: center;
     justify-content: content;
     gap: 0 0.5rem;
+    margin: 0px 20px;
   }
   .img {
     width: 25px;
@@ -26,6 +27,8 @@ export const LogoutWrapper = styled.div`
   }
   .show-dropdown {
     visibility: visible;
+  }
+  .container {
   }
   .dropdown-btn {
     border-radius: var(--border-radius);

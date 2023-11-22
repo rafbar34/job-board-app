@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GetAllCreatedJobs } from "../../api/api";
+import { DeleteSingleJob, GetAllCreatedJobs } from "../../api/api";
 import { toast } from "react-toastify";
 import { AllJobWrapper } from "../../css/AllJobs/ALlJobs";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ export const MyJobs = () => {
 
             const date = new Date(job.updatedAt);
             return (
-              <div>
+              <div className="glass-effect">
                 <div className="job-card scale_hover">
                   <div className="tools">
                     <button
@@ -57,13 +57,13 @@ export const MyJobs = () => {
                     </button>
                     <button
                       className="editBtn"
-                      onClick={() => {
-                        navigate(`/dashboard/${job._id}`);
+                      onClick={async () => {
+                        await DeleteSingleJob({ id: job._id, token: cookies });
                       }}>
                       <DeleteIcon />
                     </button>
                   </div>
-                  <div style={{ fontSize: 24, color: "green" }}>
+                  <div style={{ fontSize: 24, color: "#c2c2c2" }}>
                     {job.title}
                   </div>
                   <img
@@ -72,7 +72,7 @@ export const MyJobs = () => {
                     src={imgSrc}
                   />
                   <div style={{}}>{job.jobLocation}</div>
-                  <div>{job.jobType}</div>
+                  <div>{(job?.jobType ?? "").toUpperCase()}</div>
                   <div>{`${date.getDate()}-${
                     date.getMonth() + 1
                   }-${date.getFullYear()}`}</div>

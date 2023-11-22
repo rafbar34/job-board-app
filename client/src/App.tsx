@@ -17,7 +17,7 @@ import { CookiesProvider } from "react-cookie";
 import { SingleJob } from "./pages/SingleJob/SingleJob";
 
 export const checkDefaultTheme = () => {
-  const isDarkTheme = localStorage.getItem("darkTheme") === "true";
+  const isDarkTheme = true;
   document.body.classList.toggle("dark-theme", isDarkTheme);
   return isDarkTheme;
 };

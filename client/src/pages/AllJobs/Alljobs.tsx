@@ -36,25 +36,39 @@ export const Alljobs = () => {
       <div className="allJob">
         {!loading &&
           jobsWithLogo?.map((job) => {
-            let imgSrc = "data:image/png;base64," + job.logo;
+            let imgSrc = "data:image/png;base64," + job?.logo;
 
             const date = new Date(job.updatedAt);
             return (
               <button
+                className="glass-effect"
                 onClick={() => {
                   navigate(`/dashboard/${job._id}`);
                 }}>
                 <div className="job-card scale_hover">
-                  <div style={{ fontSize: 24, color: "green" }}>
+                  <div style={{ fontSize: 24, color: "#c2c2c2" }}>
                     {job.title}
                   </div>
-                  <img
-                    height={60}
-                    width={40}
-                    src={imgSrc}
-                  />
+                  {job?.logo ? (
+                    <img
+                      height={60}
+                      width={40}
+                      src={imgSrc}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        height: 60,
+                        width: 40,
+                        borderWidth: 2,
+                        borderColor: "black",
+                        backgroundColor: "grey",
+                        opacity: 0.1,
+                        borderRadius: 6,
+                      }}></div>
+                  )}
                   <div style={{}}>{job.jobLocation}</div>
-                  <div>{job.jobType}</div>
+                  <div>{(job?.jobType ?? "").toUpperCase()}</div>
                   <div>{`${date.getDate()}-${
                     date.getMonth() + 1
                   }-${date.getFullYear()}`}</div>

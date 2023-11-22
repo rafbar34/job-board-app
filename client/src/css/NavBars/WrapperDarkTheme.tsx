@@ -5,6 +5,7 @@ export const WrapperDarkTheme = styled.button`
   border-color: transparent;
   width: 3.5rem;
   height: 2rem;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   cursor: pointer;

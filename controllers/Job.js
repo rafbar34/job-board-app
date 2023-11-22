@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { verifyJWT } from "../routes/utils/token.js";
 import fs from "fs";
 import path from "path";
+import UserModel from "../models/UserModel.js";
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await JobModel.find({});
@@ -31,6 +32,7 @@ export const getAllCreatedJobs = async (req, res) => {
   const { userId } = verifyJWT(req.query.token);
   try {
     const jobs = await JobModel.find({ createdBy: userId });
+    console.log(jobs, "test");
     let jobsWithLogo = [];
     jobs.forEach((element) => {
       if (!element.logo) {
@@ -44,6 +46,7 @@ export const getAllCreatedJobs = async (req, res) => {
     });
     res.status(StatusCodes.OK).json({ jobsWithLogo });
   } catch (err) {
+    console.log(err);
     res
       .status(StatusCodes.GATEWAY_TIMEOUT)
       .json({ msg: "server error", reason: err });
@@ -64,6 +67,7 @@ export const createNewJob = async (req, res) => {
     );
     req.body.logo = `images/${req.body.title}.png`;
   }
+  req.body.createdBy = userId;
   try {
     const newJob = await JobModel.create(req.body);
     res.status(StatusCodes.CREATED).json({ newJob });
@@ -121,6 +125,12 @@ export const updateJob = async (req, res) => {
 
 export const deleteJob = async (req, res) => {
   const { id } = req.params;
+  const { token } = req.query.token;
+  const { userId } = verifyJWT(token);
+  const findUser = await JobModel.find({ createdBy: userId, _id: id });
+  if (!findUser) {
+    return res.status(501).json({ msg: "no auth" });
+  }
   const removedJob = await JobModel.findByIdAndDelete(id);
   try {
     if (!removedJob) {

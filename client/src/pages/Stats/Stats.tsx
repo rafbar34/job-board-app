@@ -20,7 +20,6 @@ export const Stats = () => {
   useEffect(() => {
     fetchStats();
   }, []);
-
   const data = [
     {
       color: "#1f77b4",

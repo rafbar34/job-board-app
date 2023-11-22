@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { NavbarWrapper } from "../css/NavBars/Navbar";
 import { Logout } from "./Logout";
-import { ThemeToggle } from "./ThemeToggle";
 import { UILogo } from ".";
 import { SmallSideBar } from "./SmallSideBar";
 import { DashboardContext } from "../pages/Dashboard/DashboardLayout";
@@ -22,7 +21,6 @@ export const NavBar = () => {
         <h4 className="logo-text">Findy</h4>
         <div>
           <div className="btn-container">
-            <ThemeToggle />
             <Logout />
           </div>
         </div>

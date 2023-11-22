@@ -9,7 +9,7 @@ export const Logout = () => {
   const { user } = useContext(DashboardContext);
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
-  const logout =  () => {
+  const logout = () => {
     navigate("/login");
     removeCookie("token");
   };

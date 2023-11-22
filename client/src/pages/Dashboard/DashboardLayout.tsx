@@ -1,22 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { SmallSideBar } from "../../components/SmallSideBar";
 import { BigSiderBar } from "../../components/BigSideBar";
 import { NavBar } from "../../components/NavBar";
 import { DashboardWrappter } from "../../css/Dasboard/DashboardWrapper";
 import { checkDefaultTheme } from "../../App";
-import { logoutAPI } from "../../api/api";
+import { GetCurrentUserAPI, logoutAPI } from "../../api/api";
+import { useCookies } from "react-cookie";
 
 export const DashboardContext = createContext({});
 
 export const DashboardLayout = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
   const [showSidebar, setShowSidebar] = useState(false);
+  const [userData, setUserData] = useState({});
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-  const navigation = useNavigate();
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
-    console.log("dark theme");
     document.body.classList.toggle("dark-theme", newDarkTheme);
     localStorage.setItem("darkTheme", newDarkTheme);
   };
@@ -24,8 +26,18 @@ export const DashboardLayout = () => {
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
-
-  let user = "tester";
+  const fetchUser = async () => {
+    try {
+      const res = await GetCurrentUserAPI({ token: cookies.token });
+      setUserData(res.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
+  if (!userData) return;
   return (
     <DashboardContext.Provider
       value={{
@@ -33,8 +45,7 @@ export const DashboardLayout = () => {
         isDarkTheme,
         toggleDarkTheme,
         toggleSidebar,
-        user,
-
+        user: userData?.name,
       }}>
       <DashboardWrappter>
         <main className="dashboard">

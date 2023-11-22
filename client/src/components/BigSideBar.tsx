@@ -11,9 +11,6 @@ export const BigSiderBar = () => {
         className={
           showSidebar ? "sidebar-container" : "show-sidebar sidebar-container"
         }>
-        <div className="content">
-          <header>Logo</header>
-        </div>
         <NavLinks isBigSidebar />
       </div>
     </SidebarWrapper>
