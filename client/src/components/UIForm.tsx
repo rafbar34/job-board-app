@@ -92,6 +92,7 @@ export const UIForm = ({
       });
     }
   }, [defaultValue]);
+  console.log(isDarkTheme);
   return (
     <AuthWrapper>
       <Form
@@ -175,11 +176,11 @@ export const UIForm = ({
             <div key={items.key}>
               <label
                 htmlFor="name"
-                style={{ color: isDarkTheme ? "white" : "black" }}>
+                style={{ color: "white" }}>
                 {items.title}
               </label>
               <input
-                style={{ color: isDarkTheme ? "white" : "black" }}
+                style={{ color: "white"}}
                 defaultValue={items.defaultValue}
                 type={items.type}
                 className="form-input"

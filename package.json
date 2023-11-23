@@ -50,6 +50,7 @@
     "nodemon": "^2.0.22",
     "react-charts": "^3.0.0-beta.57",
     "react-cookie": "^6.1.1",
+    "react-query": "^3.39.3",
     "react-select": "^5.7.7"
   }
 }

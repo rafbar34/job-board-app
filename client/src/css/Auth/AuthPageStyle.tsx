@@ -11,8 +11,16 @@ export const AuthWrapper = styled.section`
   }
   .form {
     /* border-top: 5px solid var(--primary-500); */
+    /* From https://css.glass */
+    background: rgba(38, 12, 38, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.7px);
+    -webkit-backdrop-filter: blur(11.7px);
+    border: 1px solid rgba(38, 12, 38, 0.3);
   }
   .form-input {
+    color: white;
     margin: 1rem 0px;
   }
   h4 {

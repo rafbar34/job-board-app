@@ -15,7 +15,10 @@ import {
 } from "./pages";
 import { CookiesProvider } from "react-cookie";
 import { SingleJob } from "./pages/SingleJob/SingleJob";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const checkDefaultTheme = () => {
   const isDarkTheme = true;
   document.body.classList.toggle("dark-theme", isDarkTheme);
@@ -67,8 +70,10 @@ const router = createBrowserRouter([
 
 export const App = () => {
   return (
-    <CookiesProvider>
-      <RouterProvider router={router} />
-    </CookiesProvider>
+    <QueryClientProvider client={queryClient}>
+      <CookiesProvider>
+        <RouterProvider router={router} />
+      </CookiesProvider>
+    </QueryClientProvider>
   );
 };

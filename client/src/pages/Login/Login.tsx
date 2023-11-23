@@ -24,7 +24,7 @@ export const Login = () => {
           ),
         });
         toast.success(res.msg);
-        return navigate("/dashboard");
+        return navigate("/dashboard/all-jobs");
       }
     } catch (e) {
       toast.error(

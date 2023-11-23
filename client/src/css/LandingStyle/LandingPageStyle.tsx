@@ -34,6 +34,7 @@ export const LandingWrapper = styled.section`
     margin-right: 1rem;
   }
   .btn {
+    margin-top: 15px;
     padding: 0.75rem 1rem;
   }
   .container {
