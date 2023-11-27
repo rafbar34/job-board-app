@@ -15,11 +15,18 @@ type JobType = {
 
 export const Alljobs = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useQuery("allJobs", GetAllJobAPI);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["allJobs"],
+    queryFn: () =>
+      GetAllJobAPI().then((res) => {
+        return res;
+      }),
+  });
 
   if (isLoading || isError) {
     return <div>Loading</div>;
   }
+  console.log(data);
   const { jobsWithLogo } = data;
   return (
     <AllJobWrapper>

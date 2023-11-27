@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SingleJobWrapper } from "../../css/SingleJob/SingleJob";
 import { useParams } from "react-router-dom";
 import { GetSingleJob } from "../../api/api";
+import { useQuery } from "react-query";
 
 export const SingleJob = () => {
   const { id } = useParams();
-  const [data, setData] = useState<object | null>(null);
-  const fetchSingleJobData = async () => {
-    try {
-      const res = await GetSingleJob({ id });
-      setData(res.job ?? []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    fetchSingleJobData();
-  }, []);
-  if (!data) return;
+  const { data, isLoading } = useQuery({
+    queryKey: ["singleJob"],
+    queryFn: () =>
+      GetSingleJob({ id }).then((x) => {
+        return x.job;
+      }),
+  });
+
+  if (isLoading) return;
   return (
     <SingleJobWrapper>
       <div className="container">

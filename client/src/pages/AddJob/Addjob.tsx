@@ -6,34 +6,36 @@ import { addJobData, addJobErrors } from "../../data/constans/add-job";
 import { AddJobAPI, EditJobAPI } from "../../api/api";
 import { useCookies } from "react-cookie";
 import { useLocation, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
 
 export const Addjob = () => {
   const [cookies, setCookie] = useCookies(["token"]);
+  const queryClient = useQueryClient();
   const { status, id } = useParams();
   const { state } = useLocation();
+  const addJob = useMutation({
+    mutationFn: (newJob) => {
+      return AddJobAPI({ data: newJob, token: cookies.token });
+    },
+    onSuccess: () => {
+      toast.success("Job has been created");
+      queryClient.invalidateQueries({ queryKey: ["allJobs"] });
+    },
+  });
+  const editJob = useMutation({
+    mutationFn: (editJob) => {
+      toast.success("Job has been edited");
+      return EditJobAPI({ data: editJob, token: cookies.token });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["allJobs"] });
+    },
+  });
   const onSubmit = async (data: object) => {
     if (status === "add") {
-      try {
-        await AddJobAPI({ data, token: cookies.token });
-        toast.success("Job offer has been created");
-      } catch (e) {
-        console.log(e);
-        toast.error(
-          `Something is wrong:${e?.response?.data?.error ?? e?.message} `
-        );
-        // handle your error
-      }
+      addJob.mutate(data);
     } else {
-      try {
-        await EditJobAPI({ data, token: cookies.token });
-        toast.success("Job offer has been Updated");
-      } catch (e) {
-        console.log(e);
-        toast.error(
-          `Something is wrong:${e?.response?.data?.error ?? e?.message} `
-        );
-        // handle your error
-      }
+      editJob.mutate(data);
     }
   };
 

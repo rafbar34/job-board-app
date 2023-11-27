@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AxisOptions, Chart } from "react-charts";
 import { GetStatsAPI } from "../../api/api";
-import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 
 type MyDatum = { date: Date; jobs: number };
 export const Stats = () => {
-  const [statsData, setStatsData] = useState([]);
-  const [cookies, setCookies] = useCookies(["token"]);
-  const fetchStats = async () => {
-    try {
-      const res = await GetStatsAPI({ token: cookies.token });
-      setStatsData(res);
-    } catch (err) {
-      toast(`something is wrong:${err.message}`);
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    fetchStats();
-  }, []);
+  const [cookies] = useCookies(["token"]);
+  const { data: statsData, isLoading } = useQuery({
+    queryKey: ["singleJob"],
+    queryFn: () =>
+      GetStatsAPI({ token: cookies.token }).then((x) => {
+        return x;
+      }),
+  });
+console.log(statsData)
   const data = [
     {
       color: "#1f77b4",
@@ -90,7 +85,8 @@ export const Stats = () => {
       },
     ],
     []
-  );
+  ); 
+   if (isLoading) return;
   return (
     <div>
       <div key={"test" + ""}>
